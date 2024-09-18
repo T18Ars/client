@@ -2,11 +2,8 @@
 import { toast } from "@/hooks/use-toast";
 import { handleErrorApi } from "@/lib/utils";
 import { Fragment } from "react";
-
 import Link from "next/link";
 import { zodResolver } from '@hookform/resolvers/zod'
-// import { LoginBody, LoginBodyType } from "@/schemaValidations/auth.schema";
-// import { useForm } from "react-hook-form";
 import { Button } from '@/components/ui/button'
 import {
   Form,
@@ -15,10 +12,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form'
-// import { useState } from 'react'
-// import { useRouter } from 'next/navigation';
-// import authApiRequest from '@/apiRequests/auth';
-// import { useToast } from "@/hooks/use-toast"
+import { useRouter } from 'next/navigation'
 import { Input } from '@/components/ui/input';
 import { useForm } from "react-hook-form";
 import { LoginBody, LoginBodyType } from "@/schemaValidations/auth.schema";
@@ -35,6 +29,7 @@ export default function LoginForm(){
         }
     })
 
+    const router = useRouter()
     const onSubmit = async (data: LoginBodyType) => {
         // Khi nhấn submit thì React hook form sẽ validate cái form bằng zod schema ở client trước
         // Nếu không pass qua vòng này thì sẽ không gọi api
@@ -46,6 +41,7 @@ export default function LoginForm(){
           toast({
             description: result.payload.message
           })
+          router.push('/')
         } catch (error: any) {
           handleErrorApi({
             error,
