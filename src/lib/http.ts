@@ -91,9 +91,10 @@ const request = async <Response>(
   const baseUrl =
     options?.baseUrl === undefined
       ? envConfig.NEXT_PUBLIC_API_ENDPOINT
-      : options.baseUrl
+      : envConfig.NEXT_PUBLIC_URL
 
   const fullUrl = `${baseUrl}/${normalizePath(url)}`
+  // const fullUrl = 'http://localhost:3000/api/auth/login'
   const res = await fetch(fullUrl, {
     ...options,
     headers: {

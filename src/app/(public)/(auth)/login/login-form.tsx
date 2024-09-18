@@ -1,7 +1,58 @@
-
+'use client'
+import { toast } from "@/hooks/use-toast";
+import { handleErrorApi } from "@/lib/utils";
 import { Fragment } from "react";
 
+import Link from "next/link";
+import { zodResolver } from '@hookform/resolvers/zod'
+// import { LoginBody, LoginBodyType } from "@/schemaValidations/auth.schema";
+// import { useForm } from "react-hook-form";
+import { Button } from '@/components/ui/button'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form'
+// import { useState } from 'react'
+// import { useRouter } from 'next/navigation';
+// import authApiRequest from '@/apiRequests/auth';
+// import { useToast } from "@/hooks/use-toast"
+import { Input } from '@/components/ui/input';
+import { useForm } from "react-hook-form";
+import { LoginBody, LoginBodyType } from "@/schemaValidations/auth.schema";
+import { useLoginMutation } from "@/queries/useAuth";
+
 export default function LoginForm(){
+    const loginMutation = useLoginMutation()
+
+    const form = useForm<LoginBodyType>({
+        resolver: zodResolver(LoginBody),
+        defaultValues: {
+            email: '',
+            password: ''
+        }
+    })
+
+    const onSubmit = async (data: LoginBodyType) => {
+        // Khi nhấn submit thì React hook form sẽ validate cái form bằng zod schema ở client trước
+        // Nếu không pass qua vòng này thì sẽ không gọi api
+        if (loginMutation.isPending) return
+        try {
+            console.log(data);
+            
+          const result = await loginMutation.mutateAsync(data)
+          toast({
+            description: result.payload.message
+          })
+        } catch (error: any) {
+          handleErrorApi({
+            error,
+            setError: form.setError
+          })
+        }
+    }
     return(
         <Fragment>
             <section className="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
@@ -23,24 +74,53 @@ export default function LoginForm(){
                         <div className="col-lg-6">
                             <div className="login__form">
                                 <h3>Login</h3>
-                                <form action="#">
+                                <Form {...form}>
+                                    <form
+                                        onSubmit={form.handleSubmit(onSubmit)}
+                                        className='space-y-2 max-w-[600px] flex-shrink-0 w-full'
+                                        noValidate
+                                    >
                                     <div className="input__item">
-                                        <input type="text" placeholder="Email address" />
-                                        <span className="icon_mail"></span>
-                                    </div>
-                                    <div className="input__item">
-                                        <input type="text" placeholder="Password" />
-                                        <span className="icon_lock"></span>
-                                    </div>
-                                    <button type="submit" className="site-btn">Login Now</button>
-                                </form>
-                                <a href="#" className="forget_pass">Forgot Your Password?</a>
+                                            <FormField
+                                                control={form.control}
+                                                name='email'
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormControl>
+                                                            <Input placeholder='Username' {...field} className="px-10 rounded-xs bg-white"/>
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <span className="icon_mail"></span>
+                                        </div>
+                                        <div className="input__item">
+                                            <FormField
+                                                control={form.control}
+                                                name='password'
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormControl>
+                                                            <Input placeholder='Password' type='password' {...field} className="px-10 rounded-xs bg-white"/>
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <span className="icon_lock"></span>
+                                        </div>
+                                    {/* <button type="submit" className="site-btn">Login Now</button> */}
+                                    <Button type="submit" style={{marginTop: '26px'}} className="site-btn bg-red-600 hover:bg-destructive/90 my-10">Login Now</Button>
+                                    </form>
+                                </Form>
+                                <Link href="#" className="forget_pass">Forgot Your Password?</Link>
                             </div>
                         </div>
                         <div className="col-lg-6">
                             <div className="login__register">
                                 <h3>Dont’t Have An Account?</h3>
-                                <a href="#" className="primary-btn">Register Now</a>
+                                <Link href="#" className="primary-btn">Register Now</Link>
                             </div>
                         </div>
                     </div>
@@ -50,10 +130,10 @@ export default function LoginForm(){
                                 <div className="login__social__links">
                                     <span>or</span>
                                     <ul>
-                                        <li><a href="#" className="facebook"><i className="fa fa-facebook"></i> Sign in With
-                                        Facebook</a></li>
-                                        <li><a href="#" className="google"><i className="fa fa-google"></i> Sign in With Google</a></li>
-                                        <li><a href="#" className="twitter"><i className="fa fa-twitter"></i> Sign in With Twitter</a>
+                                        <li><Link href="#" className="facebook"><i className="fa fa-facebook"></i> Sign in With
+                                        Facebook</Link></li>
+                                        <li><Link href="#" className="google"><i className="fa fa-google"></i> Sign in With Google</Link></li>
+                                        <li><Link href="#" className="twitter"><i className="fa fa-twitter"></i> Sign in With Twitter</Link>
                                         </li>
                                     </ul>
                                 </div>

@@ -9,7 +9,10 @@ export async function POST(request: Request) {
   const body = (await request.json()) as LoginBodyType
   const cookieStore = cookies()
   try {
+    console.log('body', body);
+    
     const { payload } = await authApiRequest.sLogin(body)
+    console.log('payload', payload);
     const { accessToken, refreshToken } = payload.data
     const decodedAccessToken = jwt.decode(accessToken) as { exp: number }
     const decodedRefreshToken = jwt.decode(refreshToken) as { exp: number }
@@ -29,6 +32,7 @@ export async function POST(request: Request) {
     })
     return NextResponse.json(payload)
   } catch (error) {
+    console.log('error', error);
     if (error instanceof HttpError) {
       return NextResponse.json(error.payload, {
         status: error.status
