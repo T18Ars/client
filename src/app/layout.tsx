@@ -4,6 +4,7 @@ import "./globals.css";
 import { Inter as FontSans } from 'next/font/google'
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import envConfig from "../../config";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,6 +31,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log(envConfig.NEXT_PUBLIC_API_ENDPOINT);
+  
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -38,9 +41,6 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <div>
-          <Button>Click me</Button>
-        </div>
         {children}
       </body>
     </html>
