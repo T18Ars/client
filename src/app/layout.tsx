@@ -1,21 +1,9 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import { Inter as FontSans } from 'next/font/google'
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import envConfig from "../../config";
+import envConfig from "../config";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
 const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans'
