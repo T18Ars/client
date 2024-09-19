@@ -11,9 +11,12 @@ export default function Head(){
     const logoutMutation = useLogoutMutation()
     const router = useRouter()
 
-    useEffect(() => {
-        setIsAuth(Boolean(getAccessTokenFromLocalStorage()))
-    }, [])
+    const isBrowser = typeof window !== 'undefined'
+    if (isBrowser){
+        useEffect(() => {
+            setIsAuth(Boolean(getAccessTokenFromLocalStorage()))
+        }, [localStorage.getItem('accessToken')])
+    }
 
     const handleLogout = async () => {
         if (logoutMutation.isPending) return

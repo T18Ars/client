@@ -93,8 +93,7 @@ const request = async <Response>(
       ? envConfig.NEXT_PUBLIC_API_ENDPOINT
       : envConfig.NEXT_PUBLIC_URL
 
-  const fullUrl = `${baseUrl}/${normalizePath(url)}`
-  // const fullUrl = 'http://localhost:3000/api/auth/login'
+      const fullUrl = `${baseUrl}/${normalizePath(url)}`
   const res = await fetch(fullUrl, {
     ...options,
     headers: {

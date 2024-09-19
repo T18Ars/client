@@ -3,7 +3,7 @@ import z from 'zod'
 
 export const LoginBody = z
   .object({
-    email: z.string().email(),
+    username: z.string(),
     password: z.string().min(6).max(100)
   })
   .strict()
@@ -14,11 +14,13 @@ export const LoginRes = z.object({
   data: z.object({
     accessToken: z.string(),
     refreshToken: z.string(),
+    expiresAccessToken: z.number(), 
+    expiresRefreshToken: z.number(),
     account: z.object({
       id: z.number(),
-      name: z.string(),
+      username: z.string(),
       email: z.string(),
-      role: z.enum([Role.Owner, Role.Employee])
+      // role: z.enum([Role.Owner, Role.Employee])
     })
   }),
   message: z.string()

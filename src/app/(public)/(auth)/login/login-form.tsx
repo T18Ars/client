@@ -24,7 +24,7 @@ export default function LoginForm(){
     const form = useForm<LoginBodyType>({
         resolver: zodResolver(LoginBody),
         defaultValues: {
-            email: '',
+            username: '',
             password: ''
         }
     })
@@ -35,8 +35,6 @@ export default function LoginForm(){
         // Nếu không pass qua vòng này thì sẽ không gọi api
         if (loginMutation.isPending) return
         try {
-            console.log(data);
-            
           const result = await loginMutation.mutateAsync(data)
           toast({
             description: result.payload.message
@@ -79,7 +77,7 @@ export default function LoginForm(){
                                     <div className="input__item">
                                             <FormField
                                                 control={form.control}
-                                                name='email'
+                                                name='username'
                                                 render={({ field }) => (
                                                     <FormItem>
                                                         <FormControl>
