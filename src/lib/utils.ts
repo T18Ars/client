@@ -46,6 +46,14 @@ export const getAccessTokenFromLocalStorage = () => isBrowser ? localStorage.get
 
 export const getRefreshTokenFromLocalStorage = () => isBrowser ? localStorage.getItem('refreshToken') : null
 
+export const getExpiresAccessTokenFromLocalStorage = () => isBrowser ? localStorage.getItem('expiresAccessToken') : null
+
+export const getExpiresRefreshTokenFromLocalStorage = () => isBrowser ? localStorage.getItem('expiresRefreshToken') : null
+
 export const setAccessTokenToLocalStorage = (value: string) => isBrowser && localStorage.setItem('accessToken', value)
 
 export const setRefreshTokenToLocalStorage = (value: string) => isBrowser && localStorage.setItem('refreshToken', value)
+
+export const setExpiresAccessTokenToLocalStorage = (value: string) => isBrowser && localStorage.setItem('expiresAccessToken', value)
+
+export const setExpiresRefreshTokenToLocalStorage = (value: string) => isBrowser && localStorage.setItem('expiresRefreshToken', value)

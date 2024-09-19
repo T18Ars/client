@@ -12,7 +12,6 @@ export async function POST(request: Request) {
     
     const { payload } = await authApiRequest.sLogin(body)
     const { accessToken, refreshToken, expiresAccessToken, expiresRefreshToken } = payload.data
-console.log(payload.data);
 
     // const decodedAccessToken = jwt.decode(accessToken) as { exp: number }
     // const decodedRefreshToken = jwt.decode(refreshToken) as { exp: number }

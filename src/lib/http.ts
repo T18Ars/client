@@ -139,6 +139,8 @@ const request = async <Response>(
           } finally {
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
+            localStorage.removeItem('expiresAccessToken')
+            localStorage.removeItem('expiresRefreshToken')
             clientLogoutRequest = null
             // Redirect về trang login có thể dẫn đến loop vô hạn
             // Nếu không không được xử lý đúng cách
@@ -164,12 +166,16 @@ const request = async <Response>(
   if (isClient) {
     const normalizeUrl = normalizePath(url)
     if (normalizeUrl === 'api/auth/login') {
-      const { accessToken, refreshToken } = (payload as LoginResType).data
+      const { accessToken, refreshToken, expiresAccessToken, expiresRefreshToken } = (payload as LoginResType).data
       localStorage.setItem('accessToken', accessToken)
       localStorage.setItem('refreshToken', refreshToken)
+      localStorage.setItem('expiresAccessToken', expiresAccessToken.toString())
+      localStorage.setItem('expiresRefreshToken', expiresRefreshToken.toString())
     } else if (normalizeUrl === 'api/auth/logout') {
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
+      localStorage.removeItem('expiresAccessToken')
+      localStorage.removeItem('expiresRefreshToken')
     }
   }
   return data
