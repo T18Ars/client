@@ -5,18 +5,16 @@ import { useLogoutMutation } from '@/queries/useAuth'
 import { getAccessTokenFromLocalStorage, handleErrorApi } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from "react";
+import { useAppContext } from '@/components/app-provider'
 
 export default function Head(){
-    const [isAuth, setIsAuth] = useState(false)
     const logoutMutation = useLogoutMutation()
     const router = useRouter()
+    const { isAuth, setIsAuth } = useAppContext()
 
-    const isBrowser = typeof window !== 'undefined'
-    if (isBrowser){
-        useEffect(() => {
-            setIsAuth(Boolean(getAccessTokenFromLocalStorage()))
-        }, [localStorage.getItem('accessToken')])
-    }
+    useEffect(() => {
+        setIsAuth(isAuth)
+    }, [isAuth])
 
     const handleLogout = async () => {
         if (logoutMutation.isPending) return

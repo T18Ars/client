@@ -3,9 +3,11 @@ import { getRefreshTokenFromLocalStorage, getAccessTokenFromLocalStorage } from 
 import { useLogoutMutation } from '@/queries/useAuth'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
+import { useAppContext } from '@/components/app-provider'
 export default function LogoutForm() {
   const { mutateAsync } = useLogoutMutation()
   const router = useRouter()
+  const { setIsAuth } = useAppContext()
   const searchParams = useSearchParams()
   const accessTokenFromUrl = searchParams.get('accessToken')
   const refreshTokenFromUrl = searchParams.get('refreshToken')
@@ -23,6 +25,7 @@ export default function LogoutForm() {
         setTimeout(() => {
           ref.current = null
         }, 1000)
+        setIsAuth(false)
         router.push('/login')
       })
     } 

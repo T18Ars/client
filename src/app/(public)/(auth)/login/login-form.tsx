@@ -51,6 +51,7 @@ export default function LoginForm(){
           toast({
             description: result.payload.message
           })
+          setIsAuth(true)
           router.push('/')
         } catch (error: any) {
           handleErrorApi({
