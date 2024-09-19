@@ -1,5 +1,5 @@
 'use client'
-import { getRefreshTokenToLocalStorage } from '@/lib/utils'
+import { getRefreshTokenToLocalStorage, getAccessTokenFromLocalStorage } from '@/lib/utils'
 import { useLogoutMutation } from '@/queries/useAuth'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
@@ -7,12 +7,16 @@ export default function LogoutForm() {
   const { mutateAsync } = useLogoutMutation()
   const router = useRouter()
   const searchParams = useSearchParams()
+  const accessTokenFromUrl = searchParams.get('accessToken')
   const refreshTokenFromUrl = searchParams.get('refreshToken')
   const ref = useRef<any>(null)
   useEffect(() => {
     if (
       ref.current ||
-      refreshTokenFromUrl !== getRefreshTokenToLocalStorage()
+      (refreshTokenFromUrl &&
+        refreshTokenFromUrl !== getRefreshTokenToLocalStorage()) ||
+      (accessTokenFromUrl &&
+        accessTokenFromUrl !== getAccessTokenFromLocalStorage())
     ) {
       return
     }
@@ -23,6 +27,6 @@ export default function LogoutForm() {
       }, 1000)
       router.push('/login')
     })
-  }, [mutateAsync, router, refreshTokenFromUrl])
+  }, [mutateAsync, router, refreshTokenFromUrl, accessTokenFromUrl])
   return <div>Log out....</div>
 }
