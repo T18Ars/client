@@ -6,8 +6,6 @@ export async function POST(request: Request) {
   const cookieStore = cookies()
   const accessToken = cookieStore.get('accessToken')?.value
   const refreshToken = cookieStore.get('refreshToken')?.value
-  console.log('accessToken',accessToken);
-  console.log('refreshToken',refreshToken);
 
   cookieStore.delete('accessToken')
   cookieStore.delete('refreshToken')
@@ -28,7 +26,6 @@ export async function POST(request: Request) {
     })
     return NextResponse.json(result.payload)
   } catch (error) {
-    console.log('error', error);
     return NextResponse.json(
       {
         message: 'Lỗi khi gọi API đến server backend'

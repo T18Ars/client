@@ -8,24 +8,38 @@ import Link from "next/link";
 import Script from "next/script";
 import AppProvider from "@/components/app-provider";
 import Head from "./head";
+import categoriesApiRequest from "@/apiRequests/categories";
 
 const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans'
 })
-
+type cate = {
+  id: string,
+  slug: string,
+  ten: string,
+  title: string,
+  description: string,
+  img: string,
+  so_thu_tu: number,
+  children: cate[],
+  ds_games: Array<cate>,
+}
 
 export const metadata: Metadata = {
   title: "Play games",
   description: "Dive into an exciting world of online games! Explore a wide variety of free games, from action-packed adventures to brain-teasing puzzles. Play now and challenge your skills with our fun and engaging gaming experience for players of all ages!",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log(envConfig.NEXT_PUBLIC_API_ENDPOINT);
+  let menu: cate[]
+  const { payload } = await categoriesApiRequest.getCateMenu()
+  menu = payload as cate[]
+  
   
   return (
     <html lang="en" suppressHydrationWarning>
@@ -55,7 +69,41 @@ export default function RootLayout({
       >
         
       <AppProvider>
-        <Head />
+        <header className="header">
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-2">
+                        <div className="header__logo">
+                            <Link href="/">
+                                <img src="img/logo.png" alt="" style={{width: '95px'}} />
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="col-lg-8">
+                        <div className="header__nav">
+                            <nav className="header__menu mobile-menu">
+                                <ul>
+                                    {menu?.map((cate: cate) => (
+                                        <li key={cate.id}>
+                                            <Link href={cate.slug}>{cate.ten}{cate.children.length > 0 &&<span className="arrow_carrot-down"></span>}</Link>
+                                            {cate.children.length > 0 &&
+                                            <ul className="dropdown">
+                                                {cate.children?.map((cateChildren: cate) => (
+                                                    <li key={cateChildren.id}><Link href={`/${cateChildren.slug}`}>{cateChildren.ten}</Link></li>
+                                                ))}
+                                            </ul>
+                                            }
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <Head />
+                </div>
+                <div id="mobile-menu-wrap"></div>
+            </div>
+        </header>
         <Toaster />
         {children}
         
@@ -68,7 +116,7 @@ export default function RootLayout({
                     <div className="row">
                         <div className="col-lg-3">
                             <div className="footer__logo">
-                                <Link href="./"><img src="img/logo.png" alt="" /></Link>
+                                <Link href="./"><img src="img/logo.png" alt="" style={{width: '95px'}} /></Link>
                             </div>
                         </div>
                         <div className="col-lg-6">

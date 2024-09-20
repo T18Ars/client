@@ -712,14 +712,19 @@ ol {
 
 .product__item__pic .ep {
 	font-size: 13px;
-	color: #ffffff;
-	background: #e53637;
-	display: inline-block;
-	padding: 2px 12px;
-	border-radius: 4px;
-	position: absolute;
-	left: 10px;
-	top: 10px;
+    color: #ffffff;
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 4px;
+    position: absolute;
+    left: 7px;
+    top: 7px;
+}
+.product__item__pic .ep.bg_red {
+    background: #e53637;
+}
+.product__item__pic .ep.bg_blue {
+    background: #368be5;
 }
 
 .product__item__pic .comment {

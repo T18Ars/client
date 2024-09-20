@@ -94,6 +94,7 @@ const request = async <Response>(
       : envConfig.NEXT_PUBLIC_URL
 
       const fullUrl = `${baseUrl}/${normalizePath(url)}`
+
   const res = await fetch(fullUrl, {
     ...options,
     headers: {
@@ -158,7 +159,10 @@ const request = async <Response>(
         )[1]
         redirect(`/logout?accessToken=${accessToken}`)
       }
-    } else {
+    }
+    else {
+      console.log(data);
+      
       throw new HttpError(data)
     }
   }
