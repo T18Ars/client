@@ -144,7 +144,7 @@ export default function CategoriesPage({slug} : Props){
                                     <div className="col-lg-3 col-md-4 col-sm-6" key={game.id}>
                                         <div className="product__item">
                                             <div className="product__item__pic">
-                                                <img src={game.img} alt="" />
+                                                <img src={game.img} alt={game.slug} />
                                                 <div className="ep bg_red">New</div>
                                             </div>
                                             <div className="product__item__text">
@@ -180,7 +180,7 @@ export default function CategoriesPage({slug} : Props){
                                         }
                                     }
                                 )}
-                                {cateDetail.meta.page != cateDetail.meta.total_page && cateDetail.meta.total_page as Number > 0 &&
+                                {cateDetail.meta.page != cateDetail.meta.total_page && ((cateDetail.meta.total_page as number) > 0) &&
                                 <Link href={`/${cateDetail.slug}?page=${cateDetail.meta.page + 1}`} ><i className="fa fa-angle-right"></i></Link>}
                                 
                                 {((cateDetail.meta.page + 1) < Number(cateDetail.meta.total_page)) &&
@@ -199,7 +199,7 @@ export default function CategoriesPage({slug} : Props){
                                         <div className="col-lg-6 col-md-6 col-sm-12" key={game.id}>
                                             <div className="product__item">
                                                 <div className="product__item__pic">
-                                                    <img src={game.img}/>
+                                                    <img src={game.img} alt={game.slug}/>
                                                     <div className="ep bg_red"></div>
                                                 </div>
                                                 <div className="product__item__text">

@@ -8,6 +8,7 @@ type Props = {
 
 export default function SlugPage({params} : Props){
     const slug = params.slug
+console.log(slug);
 
     return(
         <Fragment>

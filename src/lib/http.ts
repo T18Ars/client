@@ -54,6 +54,7 @@ export class EntityError extends HttpError {
     super({ status, payload, message: 'Lỗi thực thể' })
     this.status = status
     this.payload = payload
+    this.message = payload.message
   }
 }
 
@@ -140,6 +141,7 @@ const request = async <Response>(
           } finally {
             localStorage.removeItem('accessToken')
             localStorage.removeItem('refreshToken')
+            localStorage.removeItem('account')
             localStorage.removeItem('expiresAccessToken')
             localStorage.removeItem('expiresRefreshToken')
             clientLogoutRequest = null
@@ -170,14 +172,16 @@ const request = async <Response>(
   if (isClient) {
     const normalizeUrl = normalizePath(url)
     if (normalizeUrl === 'api/auth/login') {
-      const { accessToken, refreshToken, expiresAccessToken, expiresRefreshToken } = (payload as LoginResType).data
+      const { accessToken, refreshToken, expiresAccessToken, expiresRefreshToken, account } = (payload as LoginResType).data
       localStorage.setItem('accessToken', accessToken)
       localStorage.setItem('refreshToken', refreshToken)
+      localStorage.setItem('account', JSON.stringify(account))
       localStorage.setItem('expiresAccessToken', expiresAccessToken.toString())
       localStorage.setItem('expiresRefreshToken', expiresRefreshToken.toString())
     } else if (normalizeUrl === 'api/auth/logout') {
       localStorage.removeItem('accessToken')
       localStorage.removeItem('refreshToken')
+      localStorage.removeItem('account')
       localStorage.removeItem('expiresAccessToken')
       localStorage.removeItem('expiresRefreshToken')
     }

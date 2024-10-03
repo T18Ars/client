@@ -1,10 +1,14 @@
 import http from '@/lib/http'
 import {
+  ChangePassBodyType,
+  ChangePassResType,
   LoginBodyType,
   LoginResType,
   LogoutBodyType,
   RefreshTokenBodyType,
-  RefreshTokenResType
+  RefreshTokenResType,
+  RegisterBodyType,
+  RegisterResType
 } from '@/schemaValidations/auth.schema'
 
 const authApiRequest = {
@@ -12,8 +16,15 @@ const authApiRequest = {
     status: number
     payload: RefreshTokenResType
   }> | null,
+  sRegister: (body: RegisterBodyType) => http.post<RegisterResType>('/api/Authentication/Register', body),
+  register: (body: RegisterBodyType) => http.post<RegisterResType>('/api/auth/register', body, { baseUrl: '' }),
+
   sLogin: (body: LoginBodyType) => http.post<LoginResType>('/api/Authentication/login-client', body),
   login: (body: LoginBodyType) => http.post<LoginResType>('/api/auth/login', body, { baseUrl: '' }),
+  
+  sChangePass: (body: ChangePassBodyType) => http.post<ChangePassResType>('/api/Authentication/change-password', body),
+  changePass: (body: ChangePassBodyType) => http.post<ChangePassResType>('/api/auth/changePassword', body, { baseUrl: '' }),
+
   sLogout: (body: LogoutBodyType & { accessToken: string }) =>
     http.post(
       '/api/Authentication/logout',

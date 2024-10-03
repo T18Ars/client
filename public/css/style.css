@@ -193,6 +193,19 @@ ol {
 	padding: 12px 30px;
 }
 
+div[role="dialog"]{
+	background-color: white;
+	border-radius: 0;
+}
+
+div[role="dialog"] input{
+	border-radius: 0;
+	box-shadow: none;
+}
+.btn_change_pass{
+	border-radius: 0;
+}
+
 /* Preloder */
 
 #preloder {
@@ -2056,6 +2069,18 @@ ol {
 
 .footer__copyright__text a {
 	color: #e53637;
+}
+
+.game_relate{
+	margin-top: 30px;
+}
+.game_description{
+	height: auto;
+	background-color: #fff;
+	/* padding: 20px; */
+}
+.game_description a:hover, .game_description a:focus{
+	color: #0372b1;
 }
 
 /*--------------------------------- Responsive Media Quaries -----------------------------*/

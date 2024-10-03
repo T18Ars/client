@@ -26,12 +26,25 @@ export const handleErrorApi = ({
   duration?: number
 }) => {
   if (error instanceof EntityError && setError) {
-    error.payload.errors.forEach((item) => {
-      setError(item.field, {
-        type: 'server',
-        message: item.message
+    console.log(error.message);
+    console.log(error.payload);
+    
+    if(error.payload.errors){
+      error.payload.errors.forEach((item) => {
+        setError(item.field, {
+          type: 'server',
+          message: item.message
+        })
       })
-    })
+    }
+    else{
+      toast({
+        title: 'Lỗi',
+        description: error?.payload?.message ?? 'Lỗi không xác định',
+        variant: 'destructive',
+        duration: duration ?? 5000
+      })
+    }
   } else {
     toast({
       title: 'Lỗi',
@@ -51,6 +64,8 @@ export const getExpiresAccessTokenFromLocalStorage = () => isBrowser ? localStor
 
 export const getExpiresRefreshTokenFromLocalStorage = () => isBrowser ? localStorage.getItem('expiresRefreshToken') : null
 
+export const getProfileFromLocalStorage = () => isBrowser ? localStorage.getItem('account') : JSON.stringify({email: '', id: '', username: ''})
+
 export const setAccessTokenToLocalStorage = (value: string) => isBrowser && localStorage.setItem('accessToken', value)
 
 export const setRefreshTokenToLocalStorage = (value: string) => isBrowser && localStorage.setItem('refreshToken', value)
@@ -62,6 +77,7 @@ export const setExpiresRefreshTokenToLocalStorage = (value: string) => isBrowser
 export const removeTokensFromLocalStorage = () => {
     isBrowser && localStorage.removeItem('accessToken')
     isBrowser && localStorage.removeItem('refreshToken')
+    isBrowser && localStorage.removeItem('account')
     isBrowser && localStorage.removeItem('expiresAccessToken')
     isBrowser && localStorage.removeItem('expiresRefreshToken')
 }

@@ -48,16 +48,18 @@ export default function LoginForm(){
         if (loginMutation.isPending) return
         try {
           const result = await loginMutation.mutateAsync(data)
-          toast({
-            description: result.payload.message
-          })
-          setIsAuth(true)
-          router.push('/')
-        } catch (error: any) {
-          handleErrorApi({
-            error,
-            setError: form.setError
-          })
+          
+            toast({
+                description: result.payload.message
+            })
+            setIsAuth(true)
+            router.push('/')
+        } 
+        catch (error: any) {
+            handleErrorApi({
+                error,
+                setError: form.setError
+            })
         }
     }
     return(
@@ -127,7 +129,7 @@ export default function LoginForm(){
                         <div className="col-lg-6">
                             <div className="login__register">
                                 <h3>Dont’t Have An Account?</h3>
-                                <Link href="#" className="primary-btn">Register Now</Link>
+                                <Link href="/register" className="primary-btn">Register Now</Link>
                             </div>
                         </div>
                     </div>

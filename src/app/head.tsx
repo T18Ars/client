@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useLogoutMutation } from '@/queries/useAuth'
-import { handleErrorApi } from '@/lib/utils'
+import { getProfileFromLocalStorage, handleErrorApi } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from "react";
 import { useAppContext } from '@/components/app-provider'
@@ -11,10 +11,21 @@ export default function Head(){
     const logoutMutation = useLogoutMutation()
     const router = useRouter()
     const { isAuth, setIsAuth } = useAppContext()
+    const [profile, setProfile] = useState({
+        email: '',
+        id: '',
+        username: ''
+    })
 
     useEffect(() => {
         setIsAuth(isAuth)
     }, [isAuth])
+
+    useEffect(() => {
+        const strAccount = getProfileFromLocalStorage()
+        if (strAccount)
+            setProfile(JSON.parse(strAccount))
+    }, [])
 
     const handleLogout = async () => {
         if (logoutMutation.isPending) return
@@ -38,7 +49,7 @@ export default function Head(){
                 {isAuth ?
                 <div className="auth">
                     <Link href="#" className="auth_a">
-                        Admin <span className="arrow_carrot-down"></span>
+                        {profile.username} <span className="arrow_carrot-down"></span>
                     </Link>
                     <ul className="dropdown">
                         <li><Link href="/profile">Profile</Link></li>
