@@ -52,14 +52,14 @@ export default async function RootLayout({
         {/* <title>Anime | Template</title> */}
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-        <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
-        <link rel="stylesheet" href="css/plyr.css" type="text/css" />
-        <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-        <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-        <link rel="stylesheet" href="css/style.css" type="text/css" />
+        <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css" />
+        <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css" />
+        <link rel="stylesheet" href="/css/plyr.css" type="text/css" />
+        <link rel="stylesheet" href="/css/nice-select.css" type="text/css" />
+        <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" />
+        <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css" />
+        <link rel="stylesheet" href="/css/style.css" type="text/css" />
       </head>
       <body
         className={cn(
@@ -116,13 +116,13 @@ export default async function RootLayout({
                     <div className="row">
                         <div className="col-lg-3">
                             <div className="footer__logo">
-                                <Link href="./"><img src="img/logo.png" alt="" style={{width: '95px'}} /></Link>
+                                <Link href="/"><img src="img/logo.png" alt="" style={{width: '95px'}} /></Link>
                             </div>
                         </div>
                         <div className="col-lg-6">
                             <div className="footer__nav">
                                 <ul>
-                                    <li className="active"><Link href="./">Homepage</Link></li>
+                                    <li className="active"><Link href="/">Homepage</Link></li>
                                     <li><Link href="./categories.html">Categories</Link></li>
                                     <li><Link href="./blog.html">Our Blog</Link></li>
                                     <li><Link href="#">Contacts</Link></li>
@@ -147,14 +147,14 @@ export default async function RootLayout({
                 </form>
               </div>
             </div>
-        <Script src="js/jquery-3.3.1.min.js" />
-        <Script src="js/bootstrap.min.js" />
-        <Script src="js/player.js" />
-        <Script src="js/jquery.nice-select.min.js" />
-        <Script src="js/mixitup.min.js" />
-        <Script src="js/jquery.slicknav.js" />
-        <Script src="js/owl.carousel.min.js" />
-        <Script src="js/main.js" />
+        <Script src="/js/jquery-3.3.1.min.js" />
+        <Script src="/js/bootstrap.min.js" />
+        <Script src="/js/player.js" />
+        <Script src="/js/jquery.nice-select.min.js" />
+        <Script src="/js/mixitup.min.js" />
+        <Script src="/js/jquery.slicknav.js" />
+        <Script src="/js/owl.carousel.min.js" />
+        <Script src="/js/main.js" />
       </body>
     </html>
   );

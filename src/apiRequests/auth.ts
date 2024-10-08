@@ -2,13 +2,19 @@ import http from '@/lib/http'
 import {
   ChangePassBodyType,
   ChangePassResType,
+  FavoritesBodyType,
+  FavoritesResType,
+  ForgotPasswordBodyType,
+  ForgotPasswordResType,
   LoginBodyType,
   LoginResType,
   LogoutBodyType,
   RefreshTokenBodyType,
   RefreshTokenResType,
   RegisterBodyType,
-  RegisterResType
+  RegisterResType,
+  ResetPasswordBodyType,
+  ResetPasswordResType
 } from '@/schemaValidations/auth.schema'
 
 const authApiRequest = {
@@ -21,9 +27,18 @@ const authApiRequest = {
 
   sLogin: (body: LoginBodyType) => http.post<LoginResType>('/api/Authentication/login-client', body),
   login: (body: LoginBodyType) => http.post<LoginResType>('/api/auth/login', body, { baseUrl: '' }),
+
+  sForgotPassword: (email: string) => http.get<ForgotPasswordResType>(`/api/Authentication/ForgotPassword?email=${email}`),
+
+  sResetPassword: (body: ResetPasswordBodyType) => http.post<ResetPasswordResType>(`/api/Authentication/ResetPassword`, body),
   
   sChangePass: (body: ChangePassBodyType) => http.post<ChangePassResType>('/api/Authentication/change-password', body),
   changePass: (body: ChangePassBodyType) => http.post<ChangePassResType>('/api/auth/changePassword', body, { baseUrl: '' }),
+
+  sAddFavorites: (body: FavoritesBodyType) => { 
+    return http.post<FavoritesResType>('/api/favorites/create', body)
+  },
+  addFavorites: (body: FavoritesBodyType) => http.post<FavoritesResType>('/api/auth/addFavorites', body, { baseUrl: '' }),
 
   sLogout: (body: LogoutBodyType & { accessToken: string }) =>
     http.post(
@@ -50,7 +65,9 @@ const authApiRequest = {
     const result = await this.refreshTokenRequest
     this.refreshTokenRequest = null
     return result
-  }
+  },
+
+  setTokenToCookie: (body: { accessToken: string; refreshToken: string, expiresAccessToken: string, expiresRefreshToken: string, account: string }) => http.post('/api/auth/token', body, { baseUrl: '' })
 }
 
 export default authApiRequest

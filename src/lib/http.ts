@@ -1,5 +1,6 @@
-import { normalizePath } from '@/lib/utils'
+import { normalizePath, setAccessTokenToLocalStorage, setRefreshTokenToLocalStorage } from '@/lib/utils'
 import { LoginResType } from '@/schemaValidations/auth.schema'
+import { debug } from 'console'
 import { redirect } from 'next/navigation'
 import envConfig from '../config'
 
@@ -74,12 +75,8 @@ const request = async <Response>(
   }
   const baseHeaders: {
     [key: string]: string
-  } =
-    body instanceof FormData
-      ? {}
-      : {
-          'Content-Type': 'application/json'
-        }
+  } = body instanceof FormData ? {} : { 'Content-Type': 'application/json' }
+
   if (isClient) {
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
@@ -95,7 +92,7 @@ const request = async <Response>(
       : envConfig.NEXT_PUBLIC_URL
 
       const fullUrl = `${baseUrl}/${normalizePath(url)}`
-
+      
   const res = await fetch(fullUrl, {
     ...options,
     headers: {
@@ -184,6 +181,19 @@ const request = async <Response>(
       localStorage.removeItem('account')
       localStorage.removeItem('expiresAccessToken')
       localStorage.removeItem('expiresRefreshToken')
+    } else if ('api/auth/token' === normalizeUrl) {
+      const { accessToken, refreshToken, expiresAccessToken, expiresRefreshToken, account } = payload as {
+        accessToken: string
+        refreshToken: string
+        expiresAccessToken: number
+        expiresRefreshToken: number
+        account: string
+      }
+      localStorage.setItem('accessToken', accessToken)
+      localStorage.setItem('refreshToken', refreshToken)
+      localStorage.setItem('account', JSON.stringify(account))
+      localStorage.setItem('expiresAccessToken', expiresAccessToken.toString())
+      localStorage.setItem('expiresRefreshToken', expiresRefreshToken.toString())
     }
   }
   return data

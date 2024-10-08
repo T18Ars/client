@@ -1822,7 +1822,7 @@ div[role="dialog"] input{
 .login__form form .input__item {
 	position: relative;
 	width: 370px;
-	margin-bottom: 20px;
+	margin-bottom: 20px!important;
 }
 
 .login__form form .input__item:before {
@@ -2082,7 +2082,22 @@ div[role="dialog"] input{
 .game_description a:hover, .game_description a:focus{
 	color: #0372b1;
 }
-
+.btn_add_favorites{
+	background-color: #fff;
+	border-radius: 0px;
+}
+.header__right svg{
+	display: inline;
+}
+.section-title.product__page__title{
+	padding-bottom: 15px;
+}
+.product__item img{
+	width: 100%;
+}
+ul.dropdown{
+	padding-left: 30px;
+}
 /*--------------------------------- Responsive Media Quaries -----------------------------*/
 
 @media only screen and (min-width: 1200px) and (max-width: 1300px) {

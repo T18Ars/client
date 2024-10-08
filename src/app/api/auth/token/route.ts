@@ -1,24 +1,24 @@
-import authApiRequest from '@/apiRequests/auth'
-import { LoginBodyType } from '@/schemaValidations/auth.schema'
 import { cookies } from 'next/headers'
 import { HttpError } from '@/lib/http'
 import { NextResponse } from 'next/server'
-
 export async function POST(request: Request) {
-  const body = (await request.json()) as LoginBodyType
+  const body = (await request.json()) as {
+    accessToken: string
+    refreshToken: string
+    expiresAccessToken: number
+    expiresRefreshToken: number
+    account: string
+  }
+  const { accessToken, refreshToken, expiresAccessToken, expiresRefreshToken, account } = body
+  
   const cookieStore = cookies()
   try {
-    
-    const { payload } = await authApiRequest.sLogin(body)
-    const { accessToken, refreshToken, expiresAccessToken, expiresRefreshToken } = payload.data
-
     cookieStore.set('accessToken', accessToken, {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
       secure: true,
       expires: expiresAccessToken * 1000
-      // expires: decodedAccessToken.exp * 1000
     })
     cookieStore.set('refreshToken', refreshToken, {
       path: '/',
@@ -26,9 +26,8 @@ export async function POST(request: Request) {
       sameSite: 'lax',
       secure: true,
       expires: expiresRefreshToken * 1000
-      // expires: decodedRefreshToken.exp * 1000
     })
-    return NextResponse.json(payload)
+    return NextResponse.json(body)
   } catch (error) {
     if (error instanceof HttpError) {
       return NextResponse.json(error.payload, {

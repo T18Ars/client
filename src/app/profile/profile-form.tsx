@@ -85,7 +85,7 @@ export default function ProfileForm() {
 
     useEffect(() => {
         const fetchDataRelate = async () : Promise<gameDetail[]> => {
-            const { payload } = await gamesApiRequest.getDetailRelate('battle-s-w-a-t-vs-mercenary')
+            const { payload } = await gamesApiRequest.getGameFavoriteByUser()
             return payload as gameDetail[];
         }
         fetchDataRelate().then(res => {
@@ -264,7 +264,7 @@ export default function ProfileForm() {
                             <div className="row">
                                 {gameRelate?.map((game: gameDetail) => (
                                 <div className="col-lg-2 col-md-3 col-sm-4" key={game.id}>
-                                    <div className="product__item game_relate">
+                                    <div className="product__item">
                                         <div className="product__item__pic">
                                             <img src={game.img} alt="" />
                                             <div className="ep bg_red">New</div>

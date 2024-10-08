@@ -60,6 +60,54 @@ export const LoginRes = z.object({
 
 export type LoginResType = z.TypeOf<typeof LoginRes>
 // end Login
+  
+// ForgotPassword
+export const ForgotPasswordBody = z
+.object({
+  email: z.string().min(6).max(100)
+})
+.strict()
+
+export type ForgotPasswordBodyType = z.TypeOf<typeof ForgotPasswordBody>
+
+export const ForgotPasswordRes = z.object({
+  status: z.string(),
+  message: z.string(),
+  isSuccess: z.boolean()
+})
+
+export type ForgotPasswordResType = z.TypeOf<typeof ForgotPasswordRes>
+// end ForgotPassword
+  
+// ResetPassword
+export const ResetPasswordBody = z
+.object({
+  email: z.string().min(6).max(100),
+  password: z.string().min(6).max(100),
+  confirmpassword: z.string().min(6).max(100),
+  token: z.string().max(1024),
+})
+.strict()
+.superRefine(({ confirmpassword, password }, ctx) => {
+  if (confirmpassword !== password) {
+    ctx.addIssue({
+      code: 'custom',
+      message: 'Mật khẩu không khớp',
+      path: ['confirmpassword']
+    })
+  }
+})
+
+export type ResetPasswordBodyType = z.TypeOf<typeof ResetPasswordBody>
+
+export const ResetPasswordRes = z.object({
+  status: z.string(),
+  message: z.string(),
+  isSuccess: z.boolean()
+})
+
+export type ResetPasswordResType = z.TypeOf<typeof ResetPasswordRes>
+// end ResetPassword
 
 // Change password
 export const ChangePassBody = z
@@ -90,6 +138,25 @@ export const ChangePassRes = z.object({
 
 export type ChangePassResType = z.TypeOf<typeof ChangePassRes>
 // end Change password
+
+// AddFavorites
+export const FavoritesBody = z
+.object({
+  user_id: z.string().min(2).max(256),
+  game_id: z.string().min(2).max(256),
+})
+.strict()
+
+export type FavoritesBodyType = z.TypeOf<typeof FavoritesBody>
+
+export const FavoritesRes = z.object({
+  status: z.string(),
+  message: z.string(),
+  isSuccess: z.boolean()
+})
+
+export type FavoritesResType = z.TypeOf<typeof FavoritesRes>
+// end AddFavorites
 
 // RefreshToken
 export const RefreshTokenBody = z

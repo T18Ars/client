@@ -13,6 +13,7 @@ import categoriesApiRequest from "@/apiRequests/categories";
 import Link from "next/link";
 import { useState, useEffect, Fragment } from 'react'
 import { redirect, useRouter, useSearchParams } from 'next/navigation'
+import gamesApiRequest from "@/apiRequests/games";
 
 type Props = {
     slug: string
@@ -71,6 +72,7 @@ const initData : cate = {
 export default function CategoriesPage({slug} : Props){
     const router = useRouter()
     const [cateDetail, setCateDetail] = useState<cate>(initData)
+    const [gameTop, setGameTop] = useState<gameDetail[]>([])
     const searchParams = useSearchParams()
     const sort = searchParams.get('sort') ? searchParams.get('sort') : "0"
     const page = Number(searchParams.get('page') ? searchParams.get('page') : 1)
@@ -86,6 +88,17 @@ export default function CategoriesPage({slug} : Props){
             setCateDetail(res as cate)
         })
     }, [page, sort])
+
+    useEffect(() => {
+        // games relate
+        const fetchDataRelate = async () : Promise<gameDetail[]> => {
+            const { payload } = await gamesApiRequest.getGamesTopByCate(slug)
+            return payload as gameDetail[];
+        }
+        fetchDataRelate().then(res => {
+            setGameTop(res)
+        })
+    }, [])
 
     const handleSort = (e: any) => {
         router.push(`/${slug}?page=${cateDetail.meta.page}&sort=${e.target.value}`)
@@ -187,16 +200,16 @@ export default function CategoriesPage({slug} : Props){
                                 <Link href={`/${cateDetail.slug}?page=${cateDetail.meta.total_page}`}><i className="fa fa-angle-double-right"></i></Link>}
                             </div>
                         </div>
-                        <div className="col-lg-4 col-md-6 col-sm-8">
+                        <div className="col-lg-4 col-md-12 col-sm-12">
                             <div className="product__sidebar">
                                 <div className="product__sidebar__view">
-                                    <div className="section-title">
+                                    <div className="section-title product__page__title">
                                         <h4>Top Games</h4>
                                     </div>
                                     
                                     <div className="row">
-                                    {cateDetail?.ds_games?.map((game: gameDetail) => (
-                                        <div className="col-lg-6 col-md-6 col-sm-12" key={game.id}>
+                                    {gameTop?.map((game: gameDetail) => (
+                                        <div className="col-lg-6 col-md-4 col-sm-6" key={game.id}>
                                             <div className="product__item">
                                                 <div className="product__item__pic">
                                                     <img src={game.img} alt={game.slug}/>

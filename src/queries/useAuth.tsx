@@ -24,3 +24,27 @@ export const useChangePassMutation = () => {
     mutationFn: authApiRequest.changePass
   })
 }
+
+export const useAddFavoritesMutation = () => {
+  return useMutation({
+    mutationFn: authApiRequest.sAddFavorites
+  })
+}
+
+export const useForgotPasswordMutation = () => {
+  return useMutation({
+    mutationFn: authApiRequest.sForgotPassword
+  })
+}
+
+export const useResetPasswordMutation = () => {
+  return useMutation({
+    mutationFn: authApiRequest.sResetPassword
+  })
+}
+
+export const useSetTokenToCookieMutation = () => {
+  return useMutation({
+    mutationFn: authApiRequest.setTokenToCookie
+  })
+}
