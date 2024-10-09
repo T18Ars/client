@@ -28,8 +28,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ChangePassBody, ChangePassBodyType } from '@/schemaValidations/auth.schema'
 import { useToast } from '@/hooks/use-toast'
 import { useChangePassMutation, useLogoutMutation } from '@/queries/useAuth'
-import { useRouter } from 'next/navigation'
 import { useAppContext } from '@/components/app-provider'
+import { useRouter } from '@/navigation'
 
 type gameDetail = {
     id: string,

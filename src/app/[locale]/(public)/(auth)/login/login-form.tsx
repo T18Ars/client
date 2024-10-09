@@ -2,7 +2,7 @@
 import { toast } from "@/hooks/use-toast";
 import { handleErrorApi } from "@/lib/utils";
 import { Fragment, useState } from "react";
-import Link from "next/link";
+import { Link, useRouter } from "@/navigation";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import {
@@ -21,7 +21,7 @@ import {
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { useAppContext } from '@/components/app-provider'
 import { Input } from '@/components/ui/input';

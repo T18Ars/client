@@ -10,9 +10,9 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import categoriesApiRequest from "@/apiRequests/categories";
-import Link from "next/link";
+import { Link, useRouter } from "@/navigation";
 import { useState, useEffect, Fragment } from 'react'
-import { redirect, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import gamesApiRequest from "@/apiRequests/games";
 
 type Props = {

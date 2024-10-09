@@ -1,9 +1,10 @@
 'use client'
 import { getRefreshTokenFromLocalStorage, getAccessTokenFromLocalStorage } from '@/lib/utils'
 import { useLogoutMutation } from '@/queries/useAuth'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 import { useAppContext } from '@/components/app-provider'
+import { useRouter } from '@/navigation'
 export default function LogoutForm() {
   const { mutateAsync } = useLogoutMutation()
   const router = useRouter()

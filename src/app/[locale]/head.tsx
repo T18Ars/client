@@ -1,9 +1,8 @@
 'use client'
 
-import Link from "next/link";
+import { Link, useRouter } from "@/navigation";
 import { useLogoutMutation } from '@/queries/useAuth'
 import { getProfileFromLocalStorage, handleErrorApi } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from "react";
 import { useAppContext } from '@/components/app-provider'
 import { UserIcon, ArrowLeftEndOnRectangleIcon } from '@heroicons/react/24/solid'

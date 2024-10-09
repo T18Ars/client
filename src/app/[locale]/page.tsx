@@ -1,5 +1,5 @@
 import gamesApiRequest from "@/apiRequests/games";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { getTranslations } from 'next-intl/server'
 
 type game = {

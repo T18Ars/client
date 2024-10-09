@@ -1,6 +1,6 @@
 'use client'
 import { checkAndRefreshToken } from '@/lib/utils'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter, usePathname } from '@/navigation'
 import { useEffect } from 'react'
 // Những page sau sẽ không check refesh token
 const UNAUTHENTICATED_PATH = ['/login', '/logout', '/refresh-token']

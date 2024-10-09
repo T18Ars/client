@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { RegisterBody, RegisterBodyType } from "@/schemaValidations/auth.schema";
-import Link from "next/link";
+import { Link, useRouter } from "@/navigation";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from '@/components/ui/button'
@@ -13,7 +13,6 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form'
-import { useRouter } from 'next/navigation';
 import { useToast } from "@/hooks/use-toast"
 import { Input } from '@/components/ui/input';
 import { useRegisterMutation } from '@/queries/useAuth';

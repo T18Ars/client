@@ -4,7 +4,7 @@ import { Inter as FontSans } from 'next/font/google'
 import { cn } from "@/lib/utils";
 import envConfig from "@/config";
 import { Toaster } from "@/components/ui/toaster";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import Script from "next/script";
 import AppProvider from "@/components/app-provider";
 import Head from "./head";

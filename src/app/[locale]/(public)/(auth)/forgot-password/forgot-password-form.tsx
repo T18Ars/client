@@ -2,7 +2,7 @@
 import { toast } from "@/hooks/use-toast";
 import { handleErrorApi } from "@/lib/utils";
 import { Fragment } from "react";
-import Link from "next/link";
+// import { Link } from "@/navigation";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import {
@@ -12,13 +12,14 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { useAppContext } from '@/components/app-provider'
 import { Input } from '@/components/ui/input';
 import { useForm } from "react-hook-form";
 import { ResetPasswordBody, ResetPasswordBodyType } from "@/schemaValidations/auth.schema";
 import { useResetPasswordMutation } from "@/queries/useAuth";
+import { Link, useRouter } from "@/navigation";
 
 export default function ResetPasswordForm(){
     const resetPasswordMutation = useResetPasswordMutation()

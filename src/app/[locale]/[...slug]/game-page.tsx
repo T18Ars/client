@@ -1,8 +1,7 @@
 'use client'
 
 import gamesApiRequest from "@/apiRequests/games";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Link, useRouter } from "@/navigation";
 import { useState, useEffect, Fragment } from 'react'
 import parse, { domToReact } from 'html-react-parser';
 import { Button } from "@/components/ui/button";
