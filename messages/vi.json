@@ -1,14 +1,57 @@
 {
-    "HomePage": {
-        "title_new_games": "Trò chơi mới",
-        "title_trending_games": "Trò chơi xu hướng"
-    },
-    "Login": {
-      "title": "Đăng nhập"
-    },
-    "SwitchLanguage": {
-      "title": "Chuyển ngôn ngữ",
-      "en": "Tiếng Anh",
-      "vi": "Tiếng Việt"
-    }
+  "ErrorMessage": {
+    "invalidEmail": "Email không hợp lệ",
+    "required": "Trường này không được để trống",
+    "minmaxEmail": "Email phải từ 6 đến 100 ký tự",
+    "minmaxUsername": "Tài khoản phải từ 6 đến 100 ký tự",
+    "minmaxPassword": "Mật khẩu phải từ 6 đến 100 ký tự",
+    "passwordsDoNotMatch": "Mật khẩu không khớp"
+  },
+  "HomePage": {
+    "title_new_games": "Trò chơi mới",
+    "title_trending_games": "Trò chơi xu hướng"
+  },
+  "Login": {
+    "title": "Đăng nhập",
+    "description": "Trang đăng nhập tài khoản",
+    "descriptionPage": "Chào mừng bạn đến với thế giới game của chúng tôi, nơi bạn có thể khám phá và trải nghiệm những tựa game hấp dẫn nhất!",
+    "forgotPassword": "Quên mật khẩu",
+    "register": "Đăng ký",
+    "dontAccount": "Bạn chưa có tài khoản?",
+    "or": "Hoặc",
+    "signInGoogle": "Đăng nhập với Google",
+    "btnSendMail": "Gửi mail",
+    "username": "Tài khoản",
+    "password": "Mật khẩu"
+  },
+  "Register": {
+    "title": "Đăng ký",
+    "description": "Trang đăng ký tài khoản",
+    "descriptionPage": "Chào mừng bạn đến với thế giới game của chúng tôi, nơi bạn có thể khám phá và trải nghiệm những tựa game hấp dẫn nhất!",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "signInGoogle": "Đăng nhập với Google",
+    "alreadyHaveAnAccount": "Đã có tài khoản?",
+    "username": "Tài khoản",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "email": "Email",
+    "loginWith": "Đăng nhập với"
+  },
+  "SwitchLanguage": {
+    "title": "Chuyển ngôn ngữ",
+    "vi": "Việt Nam",
+    "en": "Anh",
+    "de": "Đức",
+    "ru": "Nga",
+    "id": "Indonesia",
+    "it": "Italia",
+    "fr": "Pháp",
+    "pl": "Ba Lan",
+    "es": "Tây Ban Nha",
+    "pt": "Bồ Đào Nha",
+    "tr": "Thổ Nhĩ Kỳ",
+    "sv": "Thụy Điển",
+    "nl": "Hà Lan"
+  }
 }

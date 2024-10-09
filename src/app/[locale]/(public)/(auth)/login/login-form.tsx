@@ -15,13 +15,11 @@ import {
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
   } from "@/components/ui/dialog"
-import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { useAppContext } from '@/components/app-provider'
 import { Input } from '@/components/ui/input';
@@ -52,6 +50,7 @@ const getOauthGoogleUrl = () => {
 const googleOauthUrl = getOauthGoogleUrl()
 export default function LoginForm(){
     const t = useTranslations('Login')
+    const errorMessageT = useTranslations('ErrorMessage')
     const loginMutation = useLoginMutation()
     const forgotPasswordMutation = useForgotPasswordMutation()
     const { searchParams, setSearchParams } = useSearchParamsLoader()
@@ -134,7 +133,7 @@ export default function LoginForm(){
                         <div className="col-lg-12 text-center">
                             <div className="normal__breadcrumb__text">
                                 <h2>{t('title')}</h2>
-                                <p>Welcome to the official Anime blog.</p>
+                                <p>{t("descriptionPage")}</p>
                             </div>
                         </div>
                     </div>
@@ -157,40 +156,46 @@ export default function LoginForm(){
                                             <FormField
                                                 control={form.control}
                                                 name='username'
-                                                render={({ field }) => (
+                                                render={({ field, formState: { errors } }) => (
                                                     <FormItem>
                                                         <FormControl>
-                                                            <Input placeholder='Username' {...field} className="px-10 rounded-xs bg-white"/>
+                                                            <Input placeholder={t("username")} {...field} className="px-10 rounded-xs bg-white"/>
                                                         </FormControl>
-                                                        <FormMessage />
+                                                        <FormMessage>
+                                                            {Boolean(errors.username?.message) &&
+                                                            errorMessageT(errors.username?.message as any)}
+                                                        </FormMessage>
                                                     </FormItem>
                                                 )}
                                             />
-                                            <span className="icon_mail"></span>
+                                            <span className="icon_profile"></span>
                                         </div>
                                         <div className="input__item">
                                             <FormField
                                                 control={form.control}
                                                 name='password'
-                                                render={({ field }) => (
+                                                render={({ field, formState: { errors } }) => (
                                                     <FormItem>
                                                         <FormControl>
-                                                            <Input placeholder='Password' type='password' {...field} className="px-10 rounded-xs bg-white"/>
+                                                            <Input placeholder={t("password")} type='password' {...field} className="px-10 rounded-xs bg-white"/>
                                                         </FormControl>
-                                                        <FormMessage />
+                                                        <FormMessage>
+                                                            {Boolean(errors.password?.message) &&
+                                                            errorMessageT(errors.password?.message as any)}
+                                                        </FormMessage>
                                                     </FormItem>
                                                 )}
                                             />
                                             <span className="icon_lock"></span>
                                         </div>
                                     {/* <button type="submit" className="site-btn">Login Now</button> */}
-                                    <Button type="submit" style={{marginTop: '26px'}} className="site-btn bg-red-600 hover:bg-destructive/90 my-10">Login Now</Button>
+                                    <Button type="submit" style={{marginTop: '26px'}} className="site-btn bg-red-600 hover:bg-destructive/90 my-10">{t('title')}</Button>
                                     </form>
                                 </Form>
                                 {/* <Link href="/forgot-password" className="forget_pass">Forgot Your Password?</Link> */}
                                 <Dialog open={open} onOpenChange={setOpen}>
                                     <DialogTrigger asChild>
-                                        <Button style={{marginTop: '26px', borderRadius: '0'}} className='site-btn bg-red-600 hover:bg-destructive/90 my-10'>Forgot Your Password?</Button>
+                                        <Button style={{marginTop: '26px', borderRadius: '0'}} className='site-btn bg-red-600 hover:bg-destructive/90 my-10'>{t("forgotPassword") + '?'}</Button>
                                     </DialogTrigger>
                                     <DialogContent className="sm:max-w-[425px]">
                                         <Form {...formForgotPassword}>
@@ -199,7 +204,7 @@ export default function LoginForm(){
                                                 noValidate
                                             >
                                                 <DialogHeader>
-                                                    <DialogTitle>Forgot password</DialogTitle>
+                                                    <DialogTitle>{t("forgotPassword")}</DialogTitle>
                                                 </DialogHeader>
                                                 <div className="grid gap-4 py-4">
                                                     <div className="grid-cols-6 items-center gap-4">
@@ -219,7 +224,7 @@ export default function LoginForm(){
                                                     </div>
                                                 </div>
                                                 <DialogFooter>
-                                                    <Button type="submit" className='btn_change_pass'>Send mail</Button>
+                                                    <Button type="submit" className='btn_change_pass'>{t("btnSendMail")}</Button>
                                                 </DialogFooter>
                                             </form>
                                         </Form>
@@ -229,8 +234,8 @@ export default function LoginForm(){
                         </div>
                         <div className="col-lg-6">
                             <div className="login__register">
-                                <h3>Dont’t Have An Account?</h3>
-                                <Link href="/register" className="primary-btn">Register Now</Link>
+                                <h3>{t("dontAccount")}</h3>
+                                <Link href="/register" className="primary-btn">{t("register")}</Link>
                             </div>
                         </div>
                     </div>
@@ -238,10 +243,10 @@ export default function LoginForm(){
                         <div className="row d-flex justify-content-center">
                             <div className="col-lg-6">
                                 <div className="login__social__links">
-                                    <span>or</span>
+                                    <span>{t("or")}</span>
                                     <ul>
                                         {/* <li><Link href="#" className="facebook"><i className="fa fa-facebook"></i> Sign in WithFacebook</Link></li> */}
-                                        <li><Link href={googleOauthUrl} className="google"><i className="fa fa-google"></i> Sign in With Google</Link></li>
+                                        <li><Link href={googleOauthUrl} className="google"><i className="fa fa-google"></i> {t("signInGoogle")}</Link></li>
                                         {/* <li><Link href="#" className="twitter"><i className="fa fa-twitter"></i> Sign in With Twitter</Link></li> */}
                                     </ul>
                                 </div>

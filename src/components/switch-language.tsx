@@ -18,6 +18,7 @@ import {
 import SearchParamsLoader, {
     useSearchParamsLoader
   } from '@/components/search-params-loader'
+import Image from 'next/image'
 
 export default function SwitchLanguage() {
   const t = useTranslations('SwitchLanguage')
@@ -39,14 +40,14 @@ export default function SwitchLanguage() {
           router.refresh()
         }}
       >
-        <SelectTrigger className='w-[140px]'>
+        <SelectTrigger className='w-[210px]'>
           <SelectValue placeholder={t('title')} />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
             {locales.map((locale) => (
               <SelectItem value={locale} key={locale}>
-                {t(locale)}
+                <img src={`/img/quocky/${locale}.jfif`} style={{width: '25px', marginRight: '8px', display: 'inline-block'}}/>{t(locale)}
               </SelectItem>
             ))}
           </SelectGroup>

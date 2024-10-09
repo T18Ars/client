@@ -4,10 +4,10 @@ import z from 'zod'
 // Register
 export const RegisterBody = z
   .object({
-    username: z.string().trim().min(2).max(256),
-    email: z.string().email(),
-    password: z.string().min(6).max(100),
-    confirm_password: z.string().min(6).max(100),
+    username: z.string().min(6, 'minmaxUsername').max(100, 'minmaxUsername'),
+    email: z.string().min(6, 'minmaxEmail').max(100, 'minmaxEmail').email({ message: 'invalidEmail' }),
+    password: z.string().min(6, 'minmaxPassword').max(100, 'minmaxPassword'),
+    confirm_password: z.string().min(6, 'minmaxPassword').max(100),
     roles: z.any()
   })
   .strict()
@@ -15,7 +15,7 @@ export const RegisterBody = z
     if (confirm_password !== password) {
       ctx.addIssue({
         code: 'custom',
-        message: 'Mật khẩu không khớp',
+        message: 'passwordsDoNotMatch',
         path: ['confirm_password']
       })
     }
@@ -35,8 +35,8 @@ export type RegisterResType = z.TypeOf<typeof RegisterRes>
 // Login
 export const LoginBody = z
   .object({
-    username: z.string(),
-    password: z.string().min(6).max(100)
+    username: z.string().min(6, 'minmaxUsername').max(100, 'minmaxUsername'),
+    password: z.string().min(6, 'minmaxPassword').max(100, 'minmaxPassword'),
   })
   .strict()
 

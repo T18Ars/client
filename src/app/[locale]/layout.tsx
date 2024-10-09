@@ -144,7 +144,7 @@ export default async function RootLayout({
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-lg-3">
+                        <div className="col-lg-3 d-flex justify-content-end">
                           <SwitchLanguage />
                         </div>
                       </div>

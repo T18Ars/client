@@ -1,14 +1,57 @@
 {
-    "HomePage": {
-      "title_new_games": "New games",
-      "title_trending_games": "Trending games"
-    },
-    "Login": {
-      "title": "Login"
-    },
-    "SwitchLanguage": {
-      "title": "Switch language",
-      "en": "English",
-      "vi": "Vietnamese"
-    }
+  "ErrorMessage": {
+    "invalidEmail": "Invalid email",
+    "required": "This field is required",
+    "minmaxEmail": "Username must be between 6 and 100 characters",
+    "minmaxUsername": "Username must be between 6 and 100 characters",
+    "minmaxPassword": "Password must be between 6 and 100 characters",
+    "passwordsDoNotMatch": "Passwords do not match"
+  },
+  "HomePage": {
+    "title_new_games": "New games",
+    "title_trending_games": "Trending games"
+  },
+  "Login": {
+    "title": "Login",
+    "description": "Manager login area",
+    "descriptionPage": "Welcome to our gaming world, where you can explore and experience the most exciting games!",
+    "forgotPassword": "Forgot Password",
+    "register": "Register",
+    "dontAccount": "Dont’t Have An Account?",
+    "or": "or",
+    "signInGoogle": "Sign in With Google",
+    "btnSendMail": "Send mail",
+    "username": "Username",
+    "password": "Password"
+  },
+  "Register": {
+    "title": "Register",
+    "description": "Manager register area",
+    "descriptionPage": "Welcome to our gaming world, where you can explore and experience the most exciting games!",
+    "login": "Login",
+    "register": "Register",
+    "signInGoogle": "Sign in With Google",
+    "alreadyHaveAnAccount": "Already have an account?",
+    "username": "Username",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "email": "Email",
+    "loginWith": "Login With"
+  },
+  "SwitchLanguage": {
+    "title": "Switch language",
+    "en": "English",
+    "vi": "Vietnamese",
+    "de": "German",
+    "ru": "Russian",
+    "id": "Indonesia",
+    "it": "Italian",
+    "fr": "French",
+    "pl": "Polish",
+    "es": "Spanish",
+    "pt": "Portuguese",
+    "tr": "Turkish",
+    "sv": "Swedish",
+    "nl": "Dutch"
+  }
 }

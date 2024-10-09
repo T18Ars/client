@@ -17,8 +17,11 @@ import { useToast } from "@/hooks/use-toast"
 import { Input } from '@/components/ui/input';
 import { useRegisterMutation } from '@/queries/useAuth';
 import { handleErrorApi } from '@/lib/utils';
+import { useTranslations } from 'next-intl'
 
 export default function RegisterForm(){
+    const t = useTranslations('Register')
+    const errorMessageT = useTranslations('ErrorMessage')
     const registeMutation = useRegisterMutation()
     const { toast } = useToast()
     const router = useRouter()
@@ -61,8 +64,8 @@ export default function RegisterForm(){
                     <div className="row">
                         <div className="col-lg-12 text-center">
                             <div className="normal__breadcrumb__text">
-                                <h2>Sign Up</h2>
-                                <p>Welcome to the official Anime blog.</p>
+                                <h2>{t("title")}</h2>
+                                <p>{t("descriptionPage")}</p>
                             </div>
                         </div>
                     </div>
@@ -74,7 +77,7 @@ export default function RegisterForm(){
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="login__form">
-                                <h3>Sign Up</h3>
+                                <h3>{t("title")}</h3>
                                 <Form {...form}>
                                     <form
                                         onSubmit={form.handleSubmit(onSubmit)}
@@ -84,27 +87,15 @@ export default function RegisterForm(){
                                             <FormField
                                                 control={form.control}
                                                 name='username'
-                                                render={({ field }) => (
+                                                render={({ field, formState: { errors } }) => (
                                                     <FormItem>
                                                         <FormControl>
-                                                            <Input placeholder='Username' {...field} className="px-10 rounded-xs bg-white"/>
+                                                            <Input placeholder={t("username")} {...field} className="px-10 rounded-xs bg-white"/>
                                                         </FormControl>
-                                                        <FormMessage />
-                                                    </FormItem>
-                                                )}
-                                            />
-                                            <span className="icon_mail"></span>
-                                        </div>
-                                        <div className="input__item">
-                                            <FormField
-                                                control={form.control}
-                                                name='email'
-                                                render={({ field }) => (
-                                                    <FormItem>
-                                                        <FormControl>
-                                                            <Input placeholder='Email' type='email' {...field} className="px-10 rounded-xs bg-white"/>
-                                                        </FormControl>
-                                                        <FormMessage />
+                                                        <FormMessage>
+                                                            {Boolean(errors.username?.message) &&
+                                                            errorMessageT(errors.username?.message as any)}
+                                                        </FormMessage>
                                                     </FormItem>
                                                 )}
                                             />
@@ -113,13 +104,34 @@ export default function RegisterForm(){
                                         <div className="input__item">
                                             <FormField
                                                 control={form.control}
-                                                name='password'
-                                                render={({ field }) => (
+                                                name='email'
+                                                render={({ field, formState: { errors } }) => (
                                                     <FormItem>
                                                         <FormControl>
-                                                            <Input placeholder='Password' type='password' {...field} className="px-10 rounded-xs bg-white"/>
+                                                            <Input placeholder={t("email")} type='email' {...field} className="px-10 rounded-xs bg-white"/>
                                                         </FormControl>
-                                                        <FormMessage />
+                                                        <FormMessage>
+                                                            {Boolean(errors.email?.message) &&
+                                                            errorMessageT(errors.email?.message as any)}
+                                                        </FormMessage>
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <span className="icon_mail"></span>
+                                        </div>
+                                        <div className="input__item">
+                                            <FormField
+                                                control={form.control}
+                                                name='password'
+                                                render={({ field, formState: { errors } }) => (
+                                                    <FormItem>
+                                                        <FormControl>
+                                                            <Input placeholder={t("password")} type='password' {...field} className="px-10 rounded-xs bg-white"/>
+                                                        </FormControl>
+                                                        <FormMessage>
+                                                            {Boolean(errors.password?.message) &&
+                                                            errorMessageT(errors.password?.message as any)}
+                                                        </FormMessage>
                                                     </FormItem>
                                                 )}
                                             />
@@ -129,31 +141,34 @@ export default function RegisterForm(){
                                             <FormField
                                                 control={form.control}
                                                 name='confirm_password'
-                                                render={({ field }) => (
+                                                render={({ field, formState: { errors } }) => (
                                                     <FormItem>
                                                         <FormControl>
-                                                            <Input placeholder='Confirm password' type='password' {...field} className="px-10 rounded-xs bg-white"/>
+                                                            <Input placeholder={t("confirmPassword")} type='password' {...field} className="px-10 rounded-xs bg-white"/>
                                                         </FormControl>
-                                                        <FormMessage />
+                                                        <FormMessage>
+                                                            {Boolean(errors.confirm_password?.message) &&
+                                                            errorMessageT(errors.confirm_password?.message as any)}
+                                                        </FormMessage>
                                                     </FormItem>
                                                 )}
                                             />
                                             <span className="icon_lock"></span>
                                         </div>
                                         {/* <button type="submit" className="site-btn">Login Now</button> */}
-                                        <Button type="submit" className="site-btn bg-red-600 hover:bg-destructive/90">Sign Up</Button>
+                                        <Button type="submit" className="site-btn bg-red-600 hover:bg-destructive/90">{t("title")}</Button>
                                     
                                     </form>
                                 </Form>
-                                <h5>Already have an account? <Link href="/login">Log In!</Link></h5>
+                                <h5>{t("alreadyHaveAnAccount")} <Link href="/login">{t("login")}!</Link></h5>
                             </div>
                         </div>
                         <div className="col-lg-6">
                             <div className="login__social__links">
-                                <h3>Login With:</h3>
+                                <h3>{t("loginWith")}:</h3>
                                 <ul>
                                     {/* <li><a href="#" className="facebook"><i className="fa fa-facebook"></i> Sign in With Facebook</a></li> */}
-                                    <li><a href="#" className="google"><i className="fa fa-google"></i> Sign in With Google</a></li>
+                                    <li><a href="#" className="google"><i className="fa fa-google"></i> {t("signInGoogle")}</a></li>
                                     {/* <li><a href="#" className="twitter"><i className="fa fa-twitter"></i> Sign in With Twitter</a></li> */}
                                 </ul>
                             </div>
