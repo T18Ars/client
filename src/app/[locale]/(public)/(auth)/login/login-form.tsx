@@ -2,7 +2,7 @@
 import { toast } from "@/hooks/use-toast";
 import { handleErrorApi } from "@/lib/utils";
 import { Fragment, useState } from "react";
-import { Link, useRouter } from "@/navigation";
+import { Link, useRouter } from "@/i18n/routing";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import {
@@ -30,6 +30,8 @@ import { ForgotPasswordBody, ForgotPasswordBodyType, LoginBody, LoginBodyType } 
 import { useForgotPasswordMutation, useLoginMutation } from "@/queries/useAuth";
 import { Label } from "@/components/ui/label";
 import envConfig from '@/config'
+import { useTranslations } from 'next-intl'
+import SearchParamsLoader, { useSearchParamsLoader } from '@/components/search-params-loader'
 
 const getOauthGoogleUrl = () => {
   const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
@@ -49,10 +51,12 @@ const getOauthGoogleUrl = () => {
 }
 const googleOauthUrl = getOauthGoogleUrl()
 export default function LoginForm(){
+    const t = useTranslations('Login')
     const loginMutation = useLoginMutation()
     const forgotPasswordMutation = useForgotPasswordMutation()
-    const searchParams = useSearchParams()
-    const clearTokens = searchParams.get('clearTokens')
+    const { searchParams, setSearchParams } = useSearchParamsLoader()
+    // const searchParams = useSearchParams()
+    const clearTokens = searchParams?.get('clearTokens')
     const { setIsAuth } = useAppContext()
     const [open, setOpen] = useState(false);
 
@@ -123,12 +127,13 @@ export default function LoginForm(){
 
     return(
         <Fragment>
+            <SearchParamsLoader onParamsReceived={setSearchParams} />
             <section className="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 text-center">
                             <div className="normal__breadcrumb__text">
-                                <h2>Login</h2>
+                                <h2>{t('title')}</h2>
                                 <p>Welcome to the official Anime blog.</p>
                             </div>
                         </div>
@@ -141,7 +146,7 @@ export default function LoginForm(){
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="login__form">
-                                <h3>Login</h3>
+                                <h3>{t('title')}</h3>
                                 <Form {...form}>
                                     <form
                                         onSubmit={form.handleSubmit(onSubmit)}

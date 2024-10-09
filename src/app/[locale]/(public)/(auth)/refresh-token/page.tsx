@@ -1,11 +1,9 @@
-'use client'
-
-import { Suspense } from 'react'
 import RefreshTokenClient from './refresh-token-client'
-export default function RefreshTokenPage() {
+import { unstable_setRequestLocale } from 'next-intl/server'
+
+export default function RefreshTokenPage({params: { locale }} : { params: { locale: string }}){
+  unstable_setRequestLocale(locale)
   return(
-    <Suspense>
-        <RefreshTokenClient />
-    </Suspense>
+    <RefreshTokenClient />
   )
 }

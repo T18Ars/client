@@ -4,14 +4,17 @@ import { Inter as FontSans } from 'next/font/google'
 import { cn } from "@/lib/utils";
 import envConfig from "@/config";
 import { Toaster } from "@/components/ui/toaster";
-import { Link } from "@/navigation";
+import { Link } from "@/i18n/routing";
 import Script from "next/script";
 import AppProvider from "@/components/app-provider";
 import Head from "./head";
 import categoriesApiRequest from "@/apiRequests/categories";
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
-import { SwitchLanguage } from '@/components/switch-language'
+import SwitchLanguage from '@/components/switch-language'
+import { locales } from '@/config'
+import { unstable_setRequestLocale } from 'next-intl/server'
+import {routing} from '@/i18n/routing';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -29,6 +32,11 @@ type cate = {
   ds_games: Array<cate>,
 }
 
+export function generateStaticParams() {
+  return routing.locales.map((locale: any) => ({locale}));
+  // return locales.map((locale) => ({ locale }))
+}
+
 export const metadata: Metadata = {
   title: "Play games",
   description: "Dive into an exciting world of online games! Explore a wide variety of free games, from action-packed adventures to brain-teasing puzzles. Play now and challenge your skills with our fun and engaging gaming experience for players of all ages!",
@@ -41,6 +49,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string }
 }>) {
+  unstable_setRequestLocale(locale)
   let menu: cate[]
   const { payload } = await categoriesApiRequest.getCateMenu()
   menu = payload as cate[]
@@ -81,7 +90,7 @@ export default async function RootLayout({
                       <div className="col-lg-2">
                           <div className="header__logo">
                               <Link href="/">
-                                  <img src="img/logo.png" alt="" style={{width: '95px'}} />
+                                  <img src="/img/logo.png" alt="" style={{width: '95px'}} />
                               </Link>
                           </div>
                       </div>
@@ -122,7 +131,7 @@ export default async function RootLayout({
                     <div className="row">
                         <div className="col-lg-3">
                             <div className="footer__logo">
-                                <Link href="/"><img src="img/logo.png" alt="" style={{width: '95px'}} /></Link>
+                                <Link href="/"><img src="/img/logo.png" alt="" style={{width: '95px'}} /></Link>
                             </div>
                         </div>
                         <div className="col-lg-6">

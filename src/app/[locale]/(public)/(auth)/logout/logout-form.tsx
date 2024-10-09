@@ -5,13 +5,15 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 import { useAppContext } from '@/components/app-provider'
 import { useRouter } from '@/navigation'
+import SearchParamsLoader, { useSearchParamsLoader } from '@/components/search-params-loader'
+
 export default function LogoutForm() {
   const { mutateAsync } = useLogoutMutation()
   const router = useRouter()
   const { setIsAuth } = useAppContext()
-  const searchParams = useSearchParams()
-  const accessTokenFromUrl = searchParams.get('accessToken')
-  const refreshTokenFromUrl = searchParams.get('refreshToken')
+  const { searchParams, setSearchParams } = useSearchParamsLoader()
+  const accessTokenFromUrl = searchParams?.get('accessToken')
+  const refreshTokenFromUrl = searchParams?.get('refreshToken')
   const ref = useRef<any>(null)
   useEffect(() => {
     if (
@@ -34,5 +36,11 @@ export default function LogoutForm() {
       router.push('/')
     }
   }, [mutateAsync, router, refreshTokenFromUrl, accessTokenFromUrl])
-  return <div>Log out....</div>
+  return (
+    <>
+      <SearchParamsLoader onParamsReceived={setSearchParams} />
+      <div>Log out....</div>
+    </>
+    
+  )
 }

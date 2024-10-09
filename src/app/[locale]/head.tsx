@@ -1,6 +1,6 @@
 'use client'
 
-import { Link, useRouter } from "@/navigation";
+import { Link, useRouter } from "@/i18n/routing";
 import { useLogoutMutation } from '@/queries/useAuth'
 import { getProfileFromLocalStorage, handleErrorApi } from '@/lib/utils'
 import { useEffect, useState } from "react";

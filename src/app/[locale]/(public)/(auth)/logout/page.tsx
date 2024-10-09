@@ -1,9 +1,9 @@
-import { Suspense } from 'react'
 import LogoutForm from './logout-form'
-export default function LogoutPage() {
+import { unstable_setRequestLocale } from 'next-intl/server'
+
+export default function LogoutPage({params: { locale }} : { params: { locale: string }}){
+  unstable_setRequestLocale(locale)
   return(
-    <Suspense>
-        <LogoutForm />
-    </Suspense>
+    <LogoutForm />
   )
 }

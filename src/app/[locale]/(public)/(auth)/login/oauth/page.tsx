@@ -2,19 +2,20 @@
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "@/navigation";
 import { useSetTokenToCookieMutation } from '@/queries/useAuth'
-import { useSearchParams } from 'next/navigation'
+import SearchParamsLoader, { useSearchParamsLoader } from '@/components/search-params-loader'
 import { useEffect, useRef } from 'react'
 export default function OAuthPage() {
     const { mutateAsync } = useSetTokenToCookieMutation()
     const router = useRouter()
     const count = useRef(0)
+    const { searchParams, setSearchParams } = useSearchParamsLoader()
     //   const { setRole, setSocket } = useAppContext()
-    const searchParams = useSearchParams()
-    const accessToken = searchParams.get('accessToken')
-    const refreshToken = searchParams.get('refreshToken')
-    const expiresAccessToken = searchParams.get('expiresAccessToken')!
-    const expiresRefreshToken = searchParams.get('expiresRefreshToken')!
-    const account = JSON.parse(decodeURIComponent(searchParams.get('account')!))
+    // const searchParams = useSearchParams()
+    const accessToken = searchParams?.get('accessToken')
+    const refreshToken = searchParams?.get('refreshToken')
+    const expiresAccessToken = searchParams?.get('expiresAccessToken')!
+    const expiresRefreshToken = searchParams?.get('expiresRefreshToken')!
+    const account = (searchParams?.get('account')! && decodeURIComponent(searchParams?.get('account')!)) && JSON.parse(decodeURIComponent(searchParams?.get('account')!)!)
     
     useEffect(() => {
         if (accessToken && refreshToken) {
@@ -49,5 +50,9 @@ export default function OAuthPage() {
         router,
         mutateAsync
   ])
-  return <div />
+  return (
+    <div>
+      <SearchParamsLoader onParamsReceived={setSearchParams} />
+    </div>
+  )
 }

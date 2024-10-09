@@ -2,7 +2,6 @@
 import { toast } from "@/hooks/use-toast";
 import { handleErrorApi } from "@/lib/utils";
 import { Fragment } from "react";
-// import { Link } from "@/navigation";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import {
@@ -19,13 +18,15 @@ import { Input } from '@/components/ui/input';
 import { useForm } from "react-hook-form";
 import { ResetPasswordBody, ResetPasswordBodyType } from "@/schemaValidations/auth.schema";
 import { useResetPasswordMutation } from "@/queries/useAuth";
-import { Link, useRouter } from "@/navigation";
+import { Link, useRouter } from "@/i18n/routing";
+import SearchParamsLoader, { useSearchParamsLoader } from '@/components/search-params-loader'
 
 export default function ResetPasswordForm(){
     const resetPasswordMutation = useResetPasswordMutation()
-    const searchParams = useSearchParams()
-    const email = searchParams.get('email')
-    const token = searchParams.get('token')
+    const { searchParams, setSearchParams } = useSearchParamsLoader()
+    // const searchParams = useSearchParams()
+    const email = searchParams?.get('email')
+    const token = searchParams?.get('token')
     const { setIsAuth } = useAppContext()
 
     const form = useForm<ResetPasswordBodyType>({
@@ -66,6 +67,7 @@ export default function ResetPasswordForm(){
     }
     return(
         <Fragment>
+            <SearchParamsLoader onParamsReceived={setSearchParams} />
             <section className="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
                 <div className="container">
                     <div className="row">

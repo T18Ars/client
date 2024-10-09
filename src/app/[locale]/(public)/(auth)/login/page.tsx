@@ -1,10 +1,9 @@
-import { Suspense } from "react";
 import LoginForm from "./login-form";
+import { unstable_setRequestLocale } from 'next-intl/server'
 
-export default function LoginPage(){
+export default function LoginPage({params: { locale }} : { params: { locale: string }}){
+    unstable_setRequestLocale(locale)
     return(
-        <Suspense>
-            <LoginForm />
-        </Suspense>
+        <LoginForm />
     );
 }

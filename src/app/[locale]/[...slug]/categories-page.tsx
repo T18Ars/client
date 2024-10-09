@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import categoriesApiRequest from "@/apiRequests/categories";
-import { Link, useRouter } from "@/navigation";
+import { Link, useRouter } from "@/i18n/routing";
 import { useState, useEffect, Fragment } from 'react'
 import { useSearchParams } from 'next/navigation'
 import gamesApiRequest from "@/apiRequests/games";

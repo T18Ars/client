@@ -2,16 +2,19 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import createMiddleware from 'next-intl/middleware';
 import { locales, defaultLocale } from '@/config'
+import {routing} from './i18n/routing';
 
 const privatePaths = ['/vi/profile', '/en/profile']
 const unAuthPaths = ['/vi/login', '/en/login']
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  const handleI18nRouting = createMiddleware({
-    locales,
-    defaultLocale
-  })
+  // const handleI18nRouting = createMiddleware({
+  //   locales,
+  //   defaultLocale
+  // })
+
+  const handleI18nRouting = createMiddleware(routing)
   const response = handleI18nRouting(request)
 
   const { pathname } = request.nextUrl

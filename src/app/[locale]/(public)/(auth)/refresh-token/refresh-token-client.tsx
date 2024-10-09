@@ -6,11 +6,13 @@ import {
 import { useRouter } from '@/navigation'
 import { useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
+import SearchParamsLoader, { useSearchParamsLoader } from '@/components/search-params-loader'
+
 export default function RefreshTokenClient() {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const refreshTokenFromUrl = searchParams.get('refreshToken')
-  const redirectPathname = searchParams.get('redirect')
+  const { searchParams, setSearchParams } = useSearchParamsLoader()
+  const refreshTokenFromUrl = searchParams?.get('refreshToken')
+  const redirectPathname = searchParams?.get('redirect')
   useEffect(() => {
     if (
       refreshTokenFromUrl &&
@@ -26,5 +28,11 @@ export default function RefreshTokenClient() {
         router.push('/')
     }
   }, [router, refreshTokenFromUrl, redirectPathname])
-  return <div>Refresh token....</div>
+  return (
+    <>
+      <SearchParamsLoader onParamsReceived={setSearchParams} />
+      <div>Refresh token....</div>
+    </>
+    
+  )
 }
