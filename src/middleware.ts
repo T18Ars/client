@@ -18,19 +18,21 @@ export function middleware(request: NextRequest) {
   // pathname: /manage/dashboard
   const accessToken = request.cookies.get('accessToken')?.value
   const refreshToken = request.cookies.get('refreshToken')?.value
+  const locale = request.cookies.get('NEXT_LOCALE')?.value
+
   // Chưa đăng nhập thì không cho vào private paths
   if (privatePaths.some((path) => pathname.startsWith(path)) && !refreshToken) {
-    const url = new URL('/login', request.url)
+    const url = new URL(`/${locale}/login`, request.url)
     url.searchParams.set('clearTokens', 'true')
-    // return NextResponse.redirect(url)
-    response.headers.set('x-middleware-rewrite', url.toString())
-    return response
+    return NextResponse.redirect(url)
+    // response.headers.set('x-middleware-rewrite', url.toString())
+    // return response
   }
   // Đăng nhập rồi thì sẽ không cho vào login nữa
   if (unAuthPaths.some((path) => pathname.startsWith(path)) && refreshToken) {
-    // return NextResponse.redirect(new URL('/', request.url))
-    response.headers.set('x-middleware-rewrite', new URL('/', request.url).toString())
-    return response
+    return NextResponse.redirect(new URL(`/${locale}`, request.url))
+    // response.headers.set('x-middleware-rewrite', new URL(`/${locale}`, request.url).toString())
+    // return response
   }
 
   // Trường hợp đăng nhập rồi, nhưng access token lại hết hạn
@@ -39,12 +41,12 @@ export function middleware(request: NextRequest) {
     !accessToken &&
     refreshToken
   ) {
-    const url = new URL('/refresh-token', request.url)
+    const url = new URL(`/${locale}/refresh-token`, request.url)
     url.searchParams.set('refreshToken', refreshToken)
     url.searchParams.set('redirect', pathname)
-    // return NextResponse.redirect(url)
-    response.headers.set('x-middleware-rewrite', url.toString())
-    return response
+    return NextResponse.redirect(url)
+    // response.headers.set('x-middleware-rewrite', url.toString())
+    // return response
   }
   
   // return NextResponse.next()
@@ -53,5 +55,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/(vi|en)/:path*']
+  matcher: ['/', '/(vi|en)/:path*']
 }

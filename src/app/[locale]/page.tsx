@@ -1,5 +1,6 @@
 import gamesApiRequest from "@/apiRequests/games";
 import Link from "next/link";
+import { getTranslations } from 'next-intl/server'
 
 type game = {
     id: string
@@ -39,6 +40,7 @@ type gameDetail = {
 }
 
 export default async function Home() {
+    const t = await getTranslations('HomePage')
     let gamesNew: game[]
     let gamesTrending: game[]
     const resGamesNew = await gamesApiRequest.getGamesNew(1, 40, "0")
@@ -58,7 +60,7 @@ export default async function Home() {
                             <div className="row">
                                 <div className="col-lg-8 col-md-8 col-sm-8">
                                     <div className="section-title">
-                                        <h4>New games</h4>
+                                        <h4>{t('title_new_games')}</h4>
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-4 col-sm-4">
@@ -88,7 +90,7 @@ export default async function Home() {
                             <div className="row">
                                 <div className="col-lg-8 col-md-8 col-sm-8">
                                     <div className="section-title">
-                                        <h4>Trending games</h4>
+                                        <h4>{t('title_trending_games')}</h4>
                                     </div>
                                 </div>
                                 <div className="col-lg-4 col-md-4 col-sm-4">

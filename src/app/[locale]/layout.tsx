@@ -2,13 +2,16 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter as FontSans } from 'next/font/google'
 import { cn } from "@/lib/utils";
-import envConfig from "../config";
+import envConfig from "@/config";
 import { Toaster } from "@/components/ui/toaster";
 import Link from "next/link";
 import Script from "next/script";
 import AppProvider from "@/components/app-provider";
 import Head from "./head";
 import categoriesApiRequest from "@/apiRequests/categories";
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
+import { SwitchLanguage } from '@/components/switch-language'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -33,16 +36,19 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
+  params: { locale }
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string }
 }>) {
   let menu: cate[]
   const { payload } = await categoriesApiRequest.getCateMenu()
   menu = payload as cate[]
-  
+  // const locale = await getLocale()
+  const messages = await getMessages()
   
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <meta charSet="UTF-8" />
         {/* <meta name="description" content="Anime Template" /> */}
@@ -67,47 +73,47 @@ export default async function RootLayout({
           fontSans.variable
         )}
       >
-        
-      <AppProvider>
-        <header className="header">
-            <div className="container">
-                <div className="row">
-                    <div className="col-lg-2">
-                        <div className="header__logo">
-                            <Link href="/">
-                                <img src="img/logo.png" alt="" style={{width: '95px'}} />
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="col-lg-8">
-                        <div className="header__nav">
-                            <nav className="header__menu mobile-menu">
-                                <ul>
-                                    {menu?.map((cate: cate) => (
-                                        <li key={cate.id}>
-                                            <Link href={cate.slug}>{cate.ten}{cate.children.length > 0 &&<span className="arrow_carrot-down"></span>}</Link>
-                                            {cate.children.length > 0 &&
-                                            <ul className="dropdown">
-                                                {cate.children?.map((cateChildren: cate) => (
-                                                    <li key={cateChildren.id}><Link href={`/${cateChildren.slug}`}>{cateChildren.ten}</Link></li>
-                                                ))}
-                                            </ul>
-                                            }
-                                        </li>
-                                    ))}
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    <Head />
-                </div>
-                <div id="mobile-menu-wrap"></div>
-            </div>
-        </header>
-        <Toaster />
-        {children}
-        
-        </AppProvider>
+      <NextIntlClientProvider messages={messages}>
+        <AppProvider>
+          <header className="header">
+              <div className="container">
+                  <div className="row">
+                      <div className="col-lg-2">
+                          <div className="header__logo">
+                              <Link href="/">
+                                  <img src="img/logo.png" alt="" style={{width: '95px'}} />
+                              </Link>
+                          </div>
+                      </div>
+                      <div className="col-lg-8">
+                          <div className="header__nav">
+                              <nav className="header__menu mobile-menu">
+                                  <ul>
+                                      {menu?.map((cate: cate) => (
+                                          <li key={cate.id}>
+                                              <Link href={cate.slug}>{cate.ten}{cate.children.length > 0 &&<span className="arrow_carrot-down"></span>}</Link>
+                                              {cate.children.length > 0 &&
+                                              <ul className="dropdown">
+                                                  {cate.children?.map((cateChildren: cate) => (
+                                                      <li key={cateChildren.id}><Link href={`/${cateChildren.slug}`}>{cateChildren.ten}</Link></li>
+                                                  ))}
+                                              </ul>
+                                              }
+                                          </li>
+                                      ))}
+                                  </ul>
+                              </nav>
+                          </div>
+                      </div>
+                      <Head />
+                  </div>
+                  <div id="mobile-menu-wrap"></div>
+              </div>
+          </header>
+          <Toaster />
+          {children}
+          
+          </AppProvider>
         <footer className="footer">
                 <div className="page-up">
                     <Link href="#" id="scrollToTopButton"><span className="arrow_carrot-up"></span></Link>
@@ -130,14 +136,12 @@ export default async function RootLayout({
                             </div>
                         </div>
                         <div className="col-lg-3">
-                            <p>
-                              Copyright &copy; All rights reserved | This template is made with <i className="fa fa-heart" aria-hidden="true"></i> by <Link href="https://colorlib.com" target="_blank">Colorlib</Link>
-                            </p>
-
-                          </div>
+                          <SwitchLanguage />
+                        </div>
                       </div>
                   </div>
             </footer>
+        </NextIntlClientProvider>
 
             <div className="search-model">
               <div className="h-100 d-flex align-items-center justify-content-center">
