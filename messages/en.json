@@ -1,0 +1,14 @@
+{
+    "HomePage": {
+      "title_new_games": "New games",
+      "title_trending_games": "Trending games"
+    },
+    "Login": {
+      "title": "Login"
+    },
+    "SwitchLanguage": {
+      "title": "Switch language",
+      "en": "English",
+      "vi": "Vietnamese"
+    }
+}
