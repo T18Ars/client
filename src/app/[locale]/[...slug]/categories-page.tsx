@@ -1,55 +1,17 @@
 'use client'
 import * as React from "react"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import categoriesApiRequest from "@/apiRequests/categories";
-import { Link, useRouter } from "@/i18n/routing";
+import categoriesApiRequest from "@/apiRequests/categories"
+import { Link, useRouter } from "@/i18n/routing"
 import { useState, useEffect, Fragment } from 'react'
 import { useSearchParams } from 'next/navigation'
-import gamesApiRequest from "@/apiRequests/games";
+import gamesApiRequest from "@/apiRequests/games"
+import { useTranslations } from 'next-intl'
 
 type Props = {
     slug: string
+    data: cate | undefined
 }
 
-type cate = {
-    id: string,
-    slug: string,
-    ten: string,
-    title: string,
-    description: string,
-    img: string,
-    so_thu_tu: number,
-    children: Array<cate>,
-    ds_games: gameDetail[],
-    meta: {
-        page: number,
-        page_size: number,
-        total: number,
-        total_page: number,
-        sort: string
-    }
-}
-type gameDetail = {
-    id: string,
-    slug: string,
-    ten: string,
-    iframe: string,
-    title: string,
-    description: string,
-    img: string,
-    is_new: boolean,
-    is_trending: boolean,
-    is_menu: boolean,
-    ten_category: string
-}
 const initData : cate = {
     id: '',
     slug: '',
@@ -69,9 +31,26 @@ const initData : cate = {
     }
 }
 
-export default function CategoriesPage({slug} : Props){
+import { Locale } from '@/config'
+import { getTranslations } from 'next-intl/server'
+import { cate, gameDetail } from "@/lib/utils"
+export async function generateMetadata({
+  params: { locale }
+}: {
+  params: { locale: Locale }
+}) {
+  const t = await getTranslations({ locale, namespace: 'Login' })
+  return {
+    title: t('title'),
+    description: t('description')
+  }
+}
+
+
+export default function CategoriesPage({slug, data} : Props){
+    const t = useTranslations('Common')
     const router = useRouter()
-    const [cateDetail, setCateDetail] = useState<cate>(initData)
+    const [cateDetail, setCateDetail] = useState<cate>(data!)
     const [gameTop, setGameTop] = useState<gameDetail[]>([])
     const searchParams = useSearchParams()
     const sort = searchParams.get('sort') ? searchParams.get('sort') : "0"
@@ -111,7 +90,7 @@ export default function CategoriesPage({slug} : Props){
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="breadcrumb__links">
-                                <a href="./"><i className="fa fa-home"></i> Home</a>
+                                <a href="./"><i className="fa fa-home"></i> {t("home")}</a>
                                 <span>{cateDetail?.ten || ''}</span>
                             </div>
                         </div>
@@ -132,7 +111,7 @@ export default function CategoriesPage({slug} : Props){
                                         </div>
                                         <div className="col-lg-4 col-md-4 col-sm-6">
                                             <div className="product__page__filter">
-                                                <p>Order by:</p>
+                                                <p>{t("orderBy")}:</p>
                                                 {/* <Select>
                                                     <SelectTrigger className="w-[180px]">
                                                         <SelectValue placeholder="Select a sort" />
@@ -204,7 +183,7 @@ export default function CategoriesPage({slug} : Props){
                             <div className="product__sidebar">
                                 <div className="product__sidebar__view">
                                     <div className="section-title product__page__title">
-                                        <h4>Top Games</h4>
+                                        <h4>{t("topGames")}</h4>
                                     </div>
                                     
                                     <div className="row">

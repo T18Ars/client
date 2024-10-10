@@ -11,8 +11,6 @@ export async function POST(request: Request) {
     return NextResponse.json(payload)
   } 
   catch (error) {
-    console.log(error);
-    
     if (error instanceof HttpError) {
       return NextResponse.json(error.payload, {
         status: error.status

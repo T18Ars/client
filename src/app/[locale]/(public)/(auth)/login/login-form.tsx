@@ -1,8 +1,8 @@
 'use client'
 import { toast } from "@/hooks/use-toast";
-import { handleErrorApi } from "@/lib/utils";
+import { CommonMessages, handleErrorApi } from "@/lib/utils";
 import { Fragment, useState } from "react";
-import { Link, useRouter } from "@/i18n/routing";
+import { Link, useRouter, usePathname } from "@/i18n/routing";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import {
@@ -30,6 +30,8 @@ import { Label } from "@/components/ui/label";
 import envConfig from '@/config'
 import { useTranslations } from 'next-intl'
 import SearchParamsLoader, { useSearchParamsLoader } from '@/components/search-params-loader'
+import { useParams } from 'next/navigation'
+
 
 const getOauthGoogleUrl = () => {
   const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
@@ -50,6 +52,8 @@ const getOauthGoogleUrl = () => {
 const googleOauthUrl = getOauthGoogleUrl()
 export default function LoginForm(){
     const t = useTranslations('Login')
+    const commonT = useTranslations('Common')
+    const forgotPasswordT = useTranslations('ForgotPassword')
     const errorMessageT = useTranslations('ErrorMessage')
     const loginMutation = useLoginMutation()
     const forgotPasswordMutation = useForgotPasswordMutation()
@@ -75,6 +79,7 @@ export default function LoginForm(){
     })
 
     const router = useRouter()
+    const lang = useParams().locale
 
     useEffect(() => {
         if (clearTokens) {
@@ -87,20 +92,22 @@ export default function LoginForm(){
         // Nếu không pass qua vòng này thì sẽ không gọi api
         if (loginMutation.isPending) return
         try {
-          const result = await loginMutation.mutateAsync(data)
-          
+            const result = await loginMutation.mutateAsync(data)
+            const messageKey = result.payload.message as keyof typeof CommonMessages;
             toast({
-                description: result.payload.message,
-                variant: "destructive",
-                className: "bg-white text-foreground",
+                description: commonT(messageKey),
+                variant: "success",
             })
             setIsAuth(true)
             router.push('/')
         } 
         catch (error: any) {
+            const messageKey = error?.payload?.message as keyof typeof CommonMessages;
             handleErrorApi({
                 error,
-                setError: form.setError
+                setError: form.setError,
+                title: commonT("errorTitle"),
+                mess: commonT(messageKey)
             })
         }
     }
@@ -108,18 +115,23 @@ export default function LoginForm(){
     const onSubmitForgotPassword = async (data: ForgotPasswordBodyType) => {
         if (forgotPasswordMutation.isPending) return
         try {
-          const result = await forgotPasswordMutation.mutateAsync(data.email)
+            // 
+            const result = await forgotPasswordMutation.mutateAsync({email: data.email, lang: lang as string})
+            const messageKey = result.payload.message as keyof typeof CommonMessages;
             toast({
-                description: result.payload.message,
-                variant: "destructive",
-                className: "bg-white text-foreground",
+                description: commonT(messageKey),
+                variant: "success"
             })
             setOpen(false)
         } 
         catch (error: any) {
+            const messageKey = error?.payload?.message as keyof typeof CommonMessages;
+            
             handleErrorApi({
                 error,
-                setError: formForgotPassword.setError
+                setError: formForgotPassword.setError,
+                title: commonT("errorTitle"),
+                mess: commonT(messageKey)
             })
         }
     }
@@ -127,7 +139,7 @@ export default function LoginForm(){
     return(
         <Fragment>
             <SearchParamsLoader onParamsReceived={setSearchParams} />
-            <section className="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
+            <section className="normal-breadcrumb set-bg" data-setbg="/img/normal-breadcrumb.jpg">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 text-center">
@@ -212,12 +224,15 @@ export default function LoginForm(){
                                                         <FormField
                                                             control={formForgotPassword.control}
                                                             name='email'
-                                                            render={({ field }) => (
+                                                            render={({ field, formState: { errors } }) => (
                                                                 <FormItem>
                                                                     <FormControl>
-                                                                        <Input placeholder='Email' {...field} className="px-3 rounded-xs bg-white"/>
+                                                                        <Input placeholder={forgotPasswordT("email")} {...field} className="px-3 rounded-xs bg-white"/>
                                                                     </FormControl>
-                                                                    <FormMessage />
+                                                                    <FormMessage>
+                                                                        {Boolean(errors.email?.message) &&
+                                                                        errorMessageT(errors.email?.message as any)}
+                                                                    </FormMessage>
                                                                 </FormItem>
                                                             )}
                                                         />

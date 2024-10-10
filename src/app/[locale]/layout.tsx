@@ -12,8 +12,8 @@ import categoriesApiRequest from "@/apiRequests/categories";
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import SwitchLanguage from '@/components/switch-language'
-import { locales } from '@/config'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { Locale } from '@/config'
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import {routing} from '@/i18n/routing';
 
 const fontSans = FontSans({
@@ -37,11 +37,18 @@ export function generateStaticParams() {
   // return locales.map((locale) => ({ locale }))
 }
 
-export const metadata: Metadata = {
-  title: "Play games",
-  description: "Dive into an exciting world of online games! Explore a wide variety of free games, from action-packed adventures to brain-teasing puzzles. Play now and challenge your skills with our fun and engaging gaming experience for players of all ages!",
-};
 
+export async function generateMetadata({
+  params: { locale }
+}: {
+  params: { locale: Locale }
+}) {
+  const t = await getTranslations({ locale, namespace: 'HomePage' })
+  return {
+    title: t('title'),
+    description: t('description')
+  }
+}
 export default async function RootLayout({
   children,
   params: { locale }

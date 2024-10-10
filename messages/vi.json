@@ -7,9 +7,39 @@
     "minmaxPassword": "Mật khẩu phải từ 6 đến 100 ký tự",
     "passwordsDoNotMatch": "Mật khẩu không khớp"
   },
+  "Common": {
+    "home": "Trang chủ",
+    "orderBy": "Sắp xếp",
+    "topGames": "Xếp hạng",
+    "profile": "Tài khoản",
+    "logout": "Đăng xuất",
+    "login": "Đăng nhập",
+    "errMess": "Có lỗi xảy ra",
+    "loginSuccess": "Đăng nhập thành công",
+    "registerSuccess": "Đăng ký tài khoản thành công",
+    "existEmail": "Email đã được đăng ký!",
+    "existUsername": "Tài khoản đã được đăng ký!",
+    "notExistUsername": "Tài khoản không tồn tại!",
+    "passwordIncorrect": "Mật khẩu không đúng!",
+    "errorTitle": "Lỗi!",
+    "changePasswordSuccess": "Thay đổi mật khẩu thành công!",
+    "passwordCurrentFail": "Mật khẩu cũ không đúng!",
+    "confirmEmail": "Vui lòng xác nhận yêu cầu thay đổi mật khẩu đã được gửi tới email của bạn!"
+  },
   "HomePage": {
+    "title": "Chơi games trực tuyến, miễn phí tại gamesonline.com",
+    "description": "Gamesonline có rất nhiều game trực tuyến, miễn phí bao gồm: đua xe, thể thao và nhiều trò chơi khác tại gamesonline.com",
+    "viewAll": "Xem thêm",
     "title_new_games": "Trò chơi mới",
     "title_trending_games": "Trò chơi xu hướng"
+  },
+  "Category": {
+    "title": "Danh mục",
+    "description": "Mô tả danh mục",
+    "viewAll": "Xem thêm"
+  },
+  "GameDetail": {
+    "addToFavorites": "Yêu thích"
   },
   "Login": {
     "title": "Đăng nhập",
@@ -37,6 +67,33 @@
     "confirmPassword": "Xác nhận mật khẩu",
     "email": "Email",
     "loginWith": "Đăng nhập với"
+  },
+  "ForgotPassword": {
+    "title": "Quên mật khẩu",
+    "description": "Trang thông tin quên mật khẩu",
+    "descriptionPage": "Chào mừng bạn đến với thế giới game của chúng tôi, nơi bạn có thể khám phá và trải nghiệm những tựa game hấp dẫn nhất!",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "forgotPassword": "Quên mật khẩu",
+    "btnSendMail": "Gửi mail",
+    "btnLogin": "Đăng nhập",
+    "btnRegister": "Đăng ký",
+    "alreadyHaveAnAccount": "Đã có tài khoản?",
+    "btnSubmit": "Xác nhận"
+  },
+  "Profile": {
+    "title": "Thông tin người dùng",
+    "description": "Trang thông tin người dùng",
+    "email": "Email",
+    "username": "Tài khoản",
+    "profile": "Thông tin cá nhân",
+    "changePassword": "Thay đổi mật khẩu",
+    "btnChangePassword": "Xác nhận",
+    "currentPassword": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Nhập lại mật khẩu",
+    "favoriteGame": "Trò chơi yêu thích"
   },
   "SwitchLanguage": {
     "title": "Chuyển ngôn ngữ",

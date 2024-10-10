@@ -1,7 +1,7 @@
 'use client'
 
 import gamesApiRequest from '@/apiRequests/games'
-import { getProfileFromLocalStorage, handleErrorApi } from '@/lib/utils'
+import { CommonMessages, getProfileFromLocalStorage, handleErrorApi } from '@/lib/utils'
 import Link from 'next/link'
 import { useRef, useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
@@ -30,6 +30,7 @@ import { useToast } from '@/hooks/use-toast'
 import { useChangePassMutation, useLogoutMutation } from '@/queries/useAuth'
 import { useAppContext } from '@/components/app-provider'
 import { useRouter } from '@/navigation'
+import { useTranslations } from 'next-intl'
 
 type gameDetail = {
     id: string,
@@ -62,6 +63,9 @@ const initData : gameDetail = {
     ten_category: ''
 }
 export default function ProfileForm() {
+    const t = useTranslations('Profile')
+    const commonT = useTranslations('Common')
+    const errorMessageT = useTranslations('ErrorMessage')
     const changePassMutation = useChangePassMutation()
     const { mutateAsync } = useLogoutMutation()
     const router = useRouter()
@@ -102,8 +106,10 @@ export default function ProfileForm() {
         try {
             data.username = profile.username;
             const result = await changePassMutation.mutateAsync(data)
+            const messageKey = result.payload.message as keyof typeof CommonMessages;
             toast({
-                description: result.payload.message
+                description: commonT(messageKey),
+                variant: "success",
             })
             if(result.payload.isSuccess){
                 mutateAsync().then((res) => {
@@ -116,9 +122,12 @@ export default function ProfileForm() {
             }
         } 
         catch (error: any) {
+            const messageKey = error?.payload?.message as keyof typeof CommonMessages;
             handleErrorApi({
                 error,
-                setError: form.setError
+                setError: form.setError,
+                title: commonT("errorTitle"),
+                mess: commonT(messageKey)
             })
         }
     }
@@ -132,7 +141,7 @@ export default function ProfileForm() {
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="section-title">
-                                        <h4>Profile</h4>
+                                        <h4>{t("profile")}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -150,11 +159,11 @@ export default function ProfileForm() {
                                                 <div className="card-body p-4">
                                                     <div className="row pt-1">
                                                         <div className="col-6 mb-3">
-                                                            <h6>Email</h6>
+                                                            <h6>{t("email")}</h6>
                                                             <p className="text-muted">{profile?.email}</p>
                                                         </div>
                                                         <div className="col-6 mb-3">
-                                                            <h6>Username</h6>
+                                                            <h6>{t("username")}</h6>
                                                             <p className="text-muted">{profile?.username}</p>
                                                         </div>
                                                     </div>
@@ -162,7 +171,7 @@ export default function ProfileForm() {
                                                         <div className="col-6 mb-3" style={{backgroundColor: 'white'}}>
                                                             <Dialog>
                                                                 <DialogTrigger asChild>
-                                                                    <Button variant="outline" className='btn_change_pass'>Change password</Button>
+                                                                    <Button variant="outline" className='btn_change_pass'>{t("changePassword")}</Button>
                                                                 </DialogTrigger>
                                                                 <DialogContent className="sm:max-w-[425px]">
                                                                     <Form {...form}>
@@ -171,7 +180,7 @@ export default function ProfileForm() {
                                                                             noValidate
                                                                         >
                                                                             <DialogHeader>
-                                                                                <DialogTitle>Change password</DialogTitle>
+                                                                                <DialogTitle>{t("changePassword")}</DialogTitle>
                                                                             </DialogHeader>
                                                                             <FormField
                                                                                 control={form.control}
@@ -182,13 +191,12 @@ export default function ProfileForm() {
                                                                                         <FormControl>
                                                                                             <Input type="hidden" {...field} className="rounded-xs bg-white"/>
                                                                                         </FormControl>
-                                                                                        <FormMessage />
                                                                                     </FormItem>
                                                                                 )}
                                                                             />
                                                                             <div className="grid gap-4 py-4">
                                                                                 <div className="grid-cols-6 items-center gap-4">
-                                                                                    <Label htmlFor="name" className="text-right">Current password</Label>
+                                                                                    <Label htmlFor="password" className="text-right">{t("currentPassword")}</Label>
                                                                                     {/* <Input
                                                                                         id="name"
                                                                                         type="password"
@@ -197,49 +205,58 @@ export default function ProfileForm() {
                                                                                     <FormField
                                                                                         control={form.control}
                                                                                         name='password'
-                                                                                        render={({ field }) => (
+                                                                                        render={({ field, formState: { errors } }) => (
                                                                                             <FormItem>
                                                                                                 <FormControl>
                                                                                                     <Input type="password" {...field} className="rounded-xs bg-white"/>
                                                                                                 </FormControl>
-                                                                                                <FormMessage />
+                                                                                                <FormMessage>
+                                                                                                    {Boolean(errors.password?.message) &&
+                                                                                                    errorMessageT(errors.password?.message as any)}
+                                                                                                </FormMessage>
                                                                                             </FormItem>
                                                                                         )}
                                                                                     />
                                                                                 </div>
                                                                                 <div className="grid-cols-6 items-center gap-4">
-                                                                                    <Label htmlFor="username" className="text-right">New password</Label>
+                                                                                    <Label htmlFor="new_password" className="text-right">{t("newPassword")}</Label>
                                                                                     <FormField
                                                                                         control={form.control}
                                                                                         name='new_password'
-                                                                                        render={({ field }) => (
+                                                                                        render={({ field, formState: { errors } }) => (
                                                                                             <FormItem>
                                                                                                 <FormControl>
                                                                                                     <Input type="password" {...field} className="rounded-xs bg-white"/>
                                                                                                 </FormControl>
-                                                                                                <FormMessage />
+                                                                                                <FormMessage>
+                                                                                                    {Boolean(errors.new_password?.message) &&
+                                                                                                    errorMessageT(errors.new_password?.message as any)}
+                                                                                                </FormMessage>
                                                                                             </FormItem>
                                                                                         )}
                                                                                     />
                                                                                 </div>
                                                                                 <div className="grid-cols-6 items-center gap-4">
-                                                                                    <Label htmlFor="username" className="text-right">Confirm password</Label>
+                                                                                    <Label htmlFor="confirm_new_password" className="text-right">{t("confirmPassword")}</Label>
                                                                                     <FormField
                                                                                         control={form.control}
                                                                                         name='confirm_new_password'
-                                                                                        render={({ field }) => (
+                                                                                        render={({ field, formState: { errors } }) => (
                                                                                             <FormItem>
                                                                                                 <FormControl>
                                                                                                     <Input type="password" {...field} className="rounded-xs bg-white"/>
                                                                                                 </FormControl>
-                                                                                                <FormMessage />
+                                                                                                <FormMessage>
+                                                                                                    {Boolean(errors.confirm_new_password?.message) &&
+                                                                                                    errorMessageT(errors.confirm_new_password?.message as any)}
+                                                                                                </FormMessage>
                                                                                             </FormItem>
                                                                                         )}
                                                                                     />
                                                                                 </div>
                                                                             </div>
                                                                             <DialogFooter>
-                                                                                <Button type="submit" className='btn_change_pass'>Save changes</Button>
+                                                                                <Button type="submit" className='btn_change_pass'>{t("btnChangePassword")}</Button>
                                                                             </DialogFooter>
                                                                         </form>
                                                                     </Form>
@@ -257,7 +274,7 @@ export default function ProfileForm() {
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="section-title">
-                                        <h4>Favorite Games</h4>
+                                        <h4>{t("favoriteGame")}</h4>
                                     </div>
                                 </div>
                             </div>

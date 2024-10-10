@@ -160,8 +160,6 @@ const request = async <Response>(
       }
     }
     else {
-      console.log(data);
-      
       throw new HttpError(data)
     }
   }

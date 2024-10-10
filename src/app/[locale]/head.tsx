@@ -6,8 +6,10 @@ import { getProfileFromLocalStorage, handleErrorApi } from '@/lib/utils'
 import { useEffect, useState } from "react";
 import { useAppContext } from '@/components/app-provider'
 import { UserIcon, ArrowLeftEndOnRectangleIcon } from '@heroicons/react/24/solid'
+import { useTranslations } from 'next-intl'
 
 export default function Head(){
+    const t = useTranslations('Common')
     const logoutMutation = useLogoutMutation()
     const router = useRouter()
     const { isAuth, setIsAuth } = useAppContext()
@@ -54,11 +56,11 @@ export default function Head(){
                         {profile.username || profile["username"]} <span className="arrow_carrot-down"></span>
                     </Link>
                     <ul className="dropdown">
-                        <li><Link href="/profile"><UserIcon className="size-4 text-white-500" /> Profile</Link></li>
-                        <li><Link href="#" onClick={handleLogout}><ArrowLeftEndOnRectangleIcon className="size-4 text-white-500" /> Logout</Link></li>
+                        <li><Link href="/profile"><UserIcon className="size-4 text-white-500" /> {t("profile")}</Link></li>
+                        <li><Link href="#" onClick={handleLogout}><ArrowLeftEndOnRectangleIcon className="size-4 text-white-500" /> {t("logout")}</Link></li>
                     </ul>
                 </div>
-                : <Link href="/login" className="txt_login">Login</Link>}
+                : <Link href="/login" className="txt_login">{t("login")}</Link>}
             </div>
         </div>
     )

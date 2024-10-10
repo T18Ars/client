@@ -19,16 +19,17 @@ export const normalizePath = (path: string) => {
 export const handleErrorApi = ({
   error,
   setError,
-  duration
+  title,
+  mess,
+  duration,
 }: {
   error: any
   setError?: UseFormSetError<any>
+  title?: string
+  mess?: string
   duration?: number
 }) => {
   if (error instanceof EntityError && setError) {
-    console.log(error.message);
-    console.log(error.payload);
-    
     if(error.payload.errors){
       error.payload.errors.forEach((item) => {
         setError(item.field, {
@@ -39,18 +40,18 @@ export const handleErrorApi = ({
     }
     else{
       toast({
-        title: 'Lỗi',
-        description: error?.payload?.message ?? 'Lỗi không xác định',
+        title: title,
+        description: mess ?? 'Lỗi không xác định',
         variant: 'destructive',
-        duration: duration ?? 5000
+        duration: duration ?? 10000
       })
     }
   } else {
     toast({
-      title: 'Lỗi',
-      description: error?.payload?.message ?? 'Lỗi không xác định',
+      title: title,
+      description: mess ?? 'Lỗi không xác định',
       variant: 'destructive',
-      duration: duration ?? 5000
+      duration: duration ?? 10000
     })
   }
 }
@@ -121,4 +122,63 @@ export const checkAndRefreshToken = async (param?: {
       param?.onError && param.onError()
     }
   }
+}
+
+export const wrapServerApi = async <T>(fn: () => Promise<T>) => {
+  let result = null
+  try {
+    result = await fn()
+  } catch (error: any) {
+    if (error.digest?.includes('NEXT_REDIRECT')) {
+      throw error
+    }
+  }
+  return result
+}
+
+export type cate = {
+  id: string,
+  slug: string,
+  ten: string,
+  title: string,
+  description: string,
+  img: string,
+  so_thu_tu: number,
+  children: Array<cate>,
+  ds_games: gameDetail[],
+  meta: {
+      page: number,
+      page_size: number,
+      total: number,
+      total_page: number,
+      sort: string
+  }
+}
+export type gameDetail = {
+  id: string,
+  slug: string,
+  ten: string,
+  iframe: string,
+  title: string,
+  description: string,
+  slug_category: string,
+  mo_ta: string,
+  img: string,
+  is_new: boolean,
+  is_trending: boolean,
+  is_menu: boolean,
+  ten_category: string,
+  is_favorites: boolean
+}
+export enum CommonMessages {
+    loginSuccess = "loginSuccess",
+    registerSuccess = "registerSuccess",
+    existEmail = "existEmail",
+    existUsername = "existUsername",
+    notExistUsername = "notExistUsername",
+    errorTitle = "errorTitle",
+    passwordIncorrect = "passwordIncorrect",
+    changePasswordSuccess = "changePasswordSuccess",
+    passwordCurrentFail = "passwordCurrentFail",
+    confirmEmail = "confirmEmail"
 }

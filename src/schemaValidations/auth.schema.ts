@@ -7,7 +7,7 @@ export const RegisterBody = z
     username: z.string().min(6, 'minmaxUsername').max(100, 'minmaxUsername'),
     email: z.string().min(6, 'minmaxEmail').max(100, 'minmaxEmail').email({ message: 'invalidEmail' }),
     password: z.string().min(6, 'minmaxPassword').max(100, 'minmaxPassword'),
-    confirm_password: z.string().min(6, 'minmaxPassword').max(100),
+    confirm_password: z.string().min(6, 'minmaxPassword').max(100, 'minmaxPassword'),
     roles: z.any()
   })
   .strict()
@@ -64,7 +64,7 @@ export type LoginResType = z.TypeOf<typeof LoginRes>
 // ForgotPassword
 export const ForgotPasswordBody = z
 .object({
-  email: z.string().min(6).max(100)
+  email: z.string().min(6, 'minmaxEmail').max(100, 'minmaxEmail').email({ message: 'invalidEmail' })
 })
 .strict()
 
@@ -82,9 +82,9 @@ export type ForgotPasswordResType = z.TypeOf<typeof ForgotPasswordRes>
 // ResetPassword
 export const ResetPasswordBody = z
 .object({
-  email: z.string().min(6).max(100),
-  password: z.string().min(6).max(100),
-  confirmpassword: z.string().min(6).max(100),
+  email: z.string().min(6, 'minmaxEmail').max(100, 'minmaxEmail').email({ message: 'invalidEmail' }),
+  password: z.string().min(6, 'minmaxPassword').max(100, 'minmaxPassword'),
+  confirmpassword: z.string().min(6, 'minmaxPassword').max(100, 'minmaxPassword'),
   token: z.string().max(1024),
 })
 .strict()
@@ -92,7 +92,7 @@ export const ResetPasswordBody = z
   if (confirmpassword !== password) {
     ctx.addIssue({
       code: 'custom',
-      message: 'Mật khẩu không khớp',
+      message: 'passwordsDoNotMatch',
       path: ['confirmpassword']
     })
   }
@@ -112,17 +112,17 @@ export type ResetPasswordResType = z.TypeOf<typeof ResetPasswordRes>
 // Change password
 export const ChangePassBody = z
 .object({
-  username: z.string().trim().min(2).max(256),
-  password: z.string().min(6).max(100),
-  new_password: z.string().min(6).max(100),
-  confirm_new_password: z.string().min(6).max(100),
+  username: z.string().trim().min(6, 'minmaxUsername').max(100, 'minmaxUsername'),
+  password: z.string().min(6, 'minmaxPassword').max(100, 'minmaxPassword'),
+  new_password: z.string().min(6, 'minmaxPassword').max(100, 'minmaxPassword'),
+  confirm_new_password: z.string().min(6, 'minmaxPassword').max(100, 'minmaxPassword'),
 })
 .strict()
 .superRefine(({ new_password, confirm_new_password }, ctx) => {
   if (new_password !== confirm_new_password) {
     ctx.addIssue({
       code: 'custom',
-      message: 'Mật khẩu không khớp',
+      message: 'passwordsDoNotMatch',
       path: ['confirm_new_password']
     })
   }

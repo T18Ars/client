@@ -1,6 +1,6 @@
 'use client'
 import { toast } from "@/hooks/use-toast";
-import { handleErrorApi } from "@/lib/utils";
+import { CommonMessages, handleErrorApi } from "@/lib/utils";
 import { Fragment } from "react";
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
@@ -12,19 +12,21 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
 import { useAppContext } from '@/components/app-provider'
 import { Input } from '@/components/ui/input';
 import { useForm } from "react-hook-form";
 import { ResetPasswordBody, ResetPasswordBodyType } from "@/schemaValidations/auth.schema";
 import { useResetPasswordMutation } from "@/queries/useAuth";
 import { Link, useRouter } from "@/i18n/routing";
-import SearchParamsLoader, { useSearchParamsLoader } from '@/components/search-params-loader'
+import { useTranslations } from 'next-intl'
 
 export default function ResetPasswordForm(){
+    const t = useTranslations('ForgotPassword')
+    const commonT = useTranslations('Common')
+    const errorMessageT = useTranslations('ErrorMessage')
     const resetPasswordMutation = useResetPasswordMutation()
-    const { searchParams, setSearchParams } = useSearchParamsLoader()
-    // const searchParams = useSearchParams()
+    const searchParams = useSearchParams()
+    // const { searchParams, setSearchParams } = useSearchParamsLoader()
     const email = searchParams?.get('email')
     const token = searchParams?.get('token')
     const { setIsAuth } = useAppContext()
@@ -42,6 +44,8 @@ export default function ResetPasswordForm(){
     const router = useRouter()
 
     const onSubmit = async (data: ResetPasswordBodyType) => {
+        console.log(data);
+        
         // Khi nhấn submit thì React hook form sẽ validate cái form bằng zod schema ở client trước
         // Nếu không pass qua vòng này thì sẽ không gọi api
         if (resetPasswordMutation.isPending) return
@@ -49,32 +53,33 @@ export default function ResetPasswordForm(){
             data.email = email as string
             data.token = (token as string).replace(/ /g, '+')
             const result = await resetPasswordMutation.mutateAsync(data)
-          
+            const messageKey = result.payload.message as keyof typeof CommonMessages;
             toast({
-                description: result.payload.message,
-                variant: "destructive",
-                className: "bg-white text-foreground",
+                description: commonT(messageKey),
+                variant: "success"
             })
             setIsAuth(true)
             router.push('/login')
         } 
         catch (error: any) {
+            const messageKey = error?.payload?.message as keyof typeof CommonMessages;
             handleErrorApi({
                 error,
-                setError: form.setError
+                setError: form.setError,
+                title: commonT("errorTitle"),
+                mess: commonT(messageKey)
             })
         }
     }
     return(
         <Fragment>
-            <SearchParamsLoader onParamsReceived={setSearchParams} />
-            <section className="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
+            <section className="normal-breadcrumb set-bg" data-setbg="/img/normal-breadcrumb.jpg">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 text-center">
                             <div className="normal__breadcrumb__text">
-                                <h2>Forgot Password</h2>
-                                <p>Welcome to the official Anime blog.</p>
+                                <h2>{t("title")}</h2>
+                                <p>{t("descriptionPage")}</p>
                             </div>
                         </div>
                     </div>
@@ -86,7 +91,7 @@ export default function ResetPasswordForm(){
                     <div className="row">
                         <div className="col-lg-6">
                             <div className="login__form">
-                                <h3>Forgot Password</h3>
+                                <h3>{t("title")}</h3>
                                 <Form {...form}>
                                     <form
                                         onSubmit={form.handleSubmit(onSubmit)}
@@ -101,7 +106,6 @@ export default function ResetPasswordForm(){
                                                     <FormControl>
                                                         <Input type="hidden" {...field} className="rounded-xs bg-white"/>
                                                     </FormControl>
-                                                    <FormMessage />
                                                 </FormItem>
                                             )}
                                         />
@@ -109,12 +113,15 @@ export default function ResetPasswordForm(){
                                             <FormField
                                                 control={form.control}
                                                 name='email'
-                                                render={({ field }) => (
+                                                render={({ field, formState: { errors } }) => (
                                                     <FormItem>
                                                         <FormControl>
-                                                            <Input placeholder='Email' {...field} className="px-10 rounded-xs bg-white"/>
+                                                            <Input placeholder={t("email")} {...field} className="px-10 rounded-xs bg-white"/>
                                                         </FormControl>
-                                                        <FormMessage />
+                                                        <FormMessage>
+                                                            {Boolean(errors.email?.message) &&
+                                                            errorMessageT(errors.email?.message as any)}
+                                                        </FormMessage>
                                                     </FormItem>
                                                 )}
                                             />
@@ -124,12 +131,15 @@ export default function ResetPasswordForm(){
                                             <FormField
                                                 control={form.control}
                                                 name='password'
-                                                render={({ field }) => (
+                                                render={({ field, formState: { errors } }) => (
                                                     <FormItem>
                                                         <FormControl>
-                                                            <Input placeholder='Password' type='password' {...field} className="px-10 rounded-xs bg-white"/>
+                                                            <Input placeholder={t("password")} type='password' {...field} className="px-10 rounded-xs bg-white"/>
                                                         </FormControl>
-                                                        <FormMessage />
+                                                        <FormMessage>
+                                                            {Boolean(errors.password?.message) &&
+                                                            errorMessageT(errors.password?.message as any)}
+                                                        </FormMessage>
                                                     </FormItem>
                                                 )}
                                             />
@@ -139,27 +149,30 @@ export default function ResetPasswordForm(){
                                             <FormField
                                                 control={form.control}
                                                 name='confirmpassword'
-                                                render={({ field }) => (
+                                                render={({ field, formState: { errors } }) => (
                                                     <FormItem>
                                                         <FormControl>
-                                                            <Input placeholder='Confirm password' type='password' {...field} className="px-10 rounded-xs bg-white"/>
+                                                            <Input placeholder={t("confirmPassword")} type='password' {...field} className="px-10 rounded-xs bg-white"/>
                                                         </FormControl>
-                                                        <FormMessage />
+                                                        <FormMessage>
+                                                            {Boolean(errors.confirmpassword?.message) &&
+                                                            errorMessageT(errors.confirmpassword?.message as any)}
+                                                        </FormMessage>
                                                     </FormItem>
                                                 )}
                                             />
                                             <span className="icon_lock"></span>
                                         </div>
-                                    <Button type="submit" style={{marginTop: '26px'}} className="site-btn bg-red-600 hover:bg-destructive/90 my-10">Submit</Button>
+                                    <Button type="submit" style={{marginTop: '26px'}} className="site-btn bg-red-600 hover:bg-destructive/90 my-10">{t("btnSubmit")}</Button>
                                     </form>
                                 </Form>
-                                <Link href="/login" className="forget_pass">Login</Link>
+                                <Link href="/login" className="forget_pass">{t("btnLogin")}</Link>
                             </div>
                         </div>
                         <div className="col-lg-6">
                             <div className="login__register">
-                                <h3>Dont’t Have An Account?</h3>
-                                <Link href="/register" className="primary-btn">Register Now</Link>
+                                <h3>{t("alreadyHaveAnAccount")}</h3>
+                                <Link href="/register" className="primary-btn">{t("btnRegister")}</Link>
                             </div>
                         </div>
                     </div>

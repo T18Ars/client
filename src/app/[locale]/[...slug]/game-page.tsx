@@ -5,33 +5,20 @@ import { Link, useRouter } from "@/i18n/routing";
 import { useState, useEffect, Fragment } from 'react'
 import parse, { domToReact } from 'html-react-parser';
 import { Button } from "@/components/ui/button";
-import { getProfileFromLocalStorage, handleErrorApi } from "@/lib/utils";
+import { gameDetail, getProfileFromLocalStorage, handleErrorApi } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useAddFavoritesMutation } from "@/queries/useAuth";
 import { FavoritesBodyType } from "@/schemaValidations/auth.schema";
 import { HeartIcon } from '@heroicons/react/24/outline'
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid'
+import { useTranslations } from 'next-intl'
 
 type Props = {
     slugCate: string
     slugGame: string
+    data: gameDetail | undefined
 }
-type gameDetail = {
-    id: string,
-    slug: string,
-    slug_category: string,
-    ten: string,
-    iframe: string,
-    title: string,
-    description: string,
-    mo_ta: string,
-    img: string,
-    is_new: boolean,
-    is_trending: boolean,
-    is_menu: boolean,
-    is_favorites: boolean,
-    ten_category: string
-}
+
 const initData : gameDetail = {
     id: '',
     slug: '',
@@ -49,9 +36,11 @@ const initData : gameDetail = {
     ten_category: ''
 }
 
-export default function GamePage({slugCate, slugGame} : Props){
+export default function GamePage({slugCate, slugGame, data} : Props){
+    const commonT = useTranslations('Common')
+    const t = useTranslations('GameDetail')
     const addFavoritesMutation = useAddFavoritesMutation()
-    const [gameDetail, setGameDetail] = useState<gameDetail>(initData)
+    const [gameDetail, setGameDetail] = useState<gameDetail>(data!)
     const [gameRelate, setGameRelate] = useState<gameDetail[]>([])
     const { toast } = useToast()
     const [profile, setProfile] = useState({
@@ -63,13 +52,13 @@ export default function GamePage({slugCate, slugGame} : Props){
 
     useEffect(() => {
         // detail game
-        const fetchData = async () : Promise<gameDetail> => {
-            const { payload } = await gamesApiRequest.getDetail(slugGame)
-            return payload as gameDetail;
-        }
-        fetchData().then(res => {
-            setGameDetail(res)
-        })
+        // const fetchData = async () : Promise<gameDetail> => {
+        //     const { payload } = await gamesApiRequest.getDetail(slugGame)
+        //     return payload as gameDetail;
+        // }
+        // fetchData().then(res => {
+        //     setGameDetail(res)
+        // })
 
         // games relate
         const fetchDataRelate = async () : Promise<gameDetail[]> => {
@@ -129,8 +118,7 @@ export default function GamePage({slugCate, slugGame} : Props){
         if(gameDetail.is_favorites) {
             toast({
                 description: 'Trò chơi đã được thêm vào mục yêu thích!',
-                variant: "destructive",
-                className: "bg-white text-foreground",
+                variant: "success",
             })
             return
         }
@@ -146,8 +134,7 @@ export default function GamePage({slugCate, slugGame} : Props){
                     const result = await addFavoritesMutation.mutateAsync(data)
                     toast({
                         description: result.payload.message,
-                        variant: "destructive",
-                        className: "bg-white text-foreground",
+                        variant: "success",
                     })
                     setGameDetail({
                         ...gameDetail,
@@ -177,7 +164,7 @@ export default function GamePage({slugCate, slugGame} : Props){
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="breadcrumb__links">
-                                <Link href="/"><i className="fa fa-home"></i> Home</Link>
+                                <Link href="/"><i className="fa fa-home"></i> {commonT("home")}</Link>
                                 <Link href={`/${slugCate}`}>{gameDetail.ten_category}</Link>
                                 <span>{gameDetail.ten || ''}</span>
                             </div>
@@ -203,7 +190,7 @@ export default function GamePage({slugCate, slugGame} : Props){
                     <div className="row mt-3">
                         <div className="col-lg-12 pull-right text-right">
                             <Button variant="outline" className='btn_add_favorites' onClick={handleAddToFavorites}>
-                                {gameDetail?.is_favorites ? <HeartIconSolid className="size-4 text-red-500" /> : <HeartIcon className="size-4 text-red-500" />} Add to Favorites
+                                {gameDetail?.is_favorites ? <HeartIconSolid className="size-4 text-red-500" /> : <HeartIcon className="size-4 text-red-500" />} { t("addToFavorites")}
                             </Button>
                         </div>
                     </div>

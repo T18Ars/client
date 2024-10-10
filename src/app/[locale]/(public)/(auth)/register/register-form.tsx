@@ -16,11 +16,12 @@ import {
 import { useToast } from "@/hooks/use-toast"
 import { Input } from '@/components/ui/input';
 import { useRegisterMutation } from '@/queries/useAuth';
-import { handleErrorApi } from '@/lib/utils';
+import { CommonMessages, handleErrorApi } from '@/lib/utils';
 import { useTranslations } from 'next-intl'
 
 export default function RegisterForm(){
     const t = useTranslations('Register')
+    const commonT = useTranslations('Common')
     const errorMessageT = useTranslations('ErrorMessage')
     const registeMutation = useRegisterMutation()
     const { toast } = useToast()
@@ -42,24 +43,29 @@ export default function RegisterForm(){
         if (registeMutation.isPending) return
         try {
             const result = await registeMutation.mutateAsync(data)
+            const messageKey = result.payload.message as keyof typeof CommonMessages;
+            console.log(messageKey);
+            
             toast({
-                description: result.payload.message,
-                variant: "destructive",
-                className: "bg-white text-foreground",
+                description: commonT(messageKey),
+                variant: "success"
             })
             router.push('/login')
         } 
         catch (error: any) {
+            const messageKey = error?.payload?.message as keyof typeof CommonMessages;
             handleErrorApi({
                 error,
-                setError: form.setError
+                setError: form.setError,
+                title: commonT("errorTitle"),
+                mess: commonT(messageKey)
             })
         }
     }
     
     return(
         <Fragment>
-            <section className="normal-breadcrumb set-bg" data-setbg="img/normal-breadcrumb.jpg">
+            <section className="normal-breadcrumb set-bg" data-setbg="/img/normal-breadcrumb.jpg">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12 text-center">

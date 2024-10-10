@@ -4,7 +4,10 @@ import { useRouter } from "@/navigation";
 import { useSetTokenToCookieMutation } from '@/queries/useAuth'
 import SearchParamsLoader, { useSearchParamsLoader } from '@/components/search-params-loader'
 import { useEffect, useRef } from 'react'
+import { useTranslations } from 'next-intl'
+
 export default function OAuthPage() {
+    const t = useTranslations('Common')
     const { mutateAsync } = useSetTokenToCookieMutation()
     const router = useRouter()
     const count = useRef(0)
@@ -26,7 +29,7 @@ export default function OAuthPage() {
                 })
                 .catch((e) => {
                     toast({
-                        description: e.message || 'Có lỗi xảy ra',
+                        description: e.message || t("errMess"),
                         variant: "destructive",
                         className: "bg-white text-foreground",
                     })
@@ -34,13 +37,13 @@ export default function OAuthPage() {
                 count.current++
             }
         } 
-        else {
-            toast({
-                description: 'Có lỗi xảy ra',
-                variant: "destructive",
-                className: "bg-white text-foreground",
-            })
-        }
+        // else {
+        //     toast({
+        //         description: 'Có lỗi xảy ra',
+        //         variant: "destructive",
+        //         className: "bg-white text-foreground",
+        //     })
+        // }
     }, [
         accessToken,
         refreshToken,

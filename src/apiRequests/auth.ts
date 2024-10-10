@@ -28,7 +28,13 @@ const authApiRequest = {
   sLogin: (body: LoginBodyType) => http.post<LoginResType>('/api/Authentication/login-client', body),
   login: (body: LoginBodyType) => http.post<LoginResType>('/api/auth/login', body, { baseUrl: '' }),
 
-  sForgotPassword: (email: string) => http.get<ForgotPasswordResType>(`/api/Authentication/ForgotPassword?email=${email}`),
+  sForgotPassword: (data : {email: string, lang: string}) => {
+    console.log(data);
+    
+    return http.get<ForgotPasswordResType>(`/api/Authentication/ForgotPassword?email=${data.email}&lang=${data.lang}`)
+  },
+
+  // sForgotPassword: (email: string) => http.get<ForgotPasswordResType>(`/api/Authentication/ForgotPassword?email=${email}`),
 
   sResetPassword: (body: ResetPasswordBodyType) => http.post<ResetPasswordResType>(`/api/Authentication/ResetPassword`, body),
   

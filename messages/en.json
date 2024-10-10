@@ -2,14 +2,44 @@
   "ErrorMessage": {
     "invalidEmail": "Invalid email",
     "required": "This field is required",
-    "minmaxEmail": "Username must be between 6 and 100 characters",
+    "minmaxEmail": "Email must be between 6 and 100 characters",
     "minmaxUsername": "Username must be between 6 and 100 characters",
     "minmaxPassword": "Password must be between 6 and 100 characters",
     "passwordsDoNotMatch": "Passwords do not match"
   },
+  "Common": {
+    "home": "Home",
+    "orderBy": "Order by",
+    "topGames": "Top games",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "errMess": "An error occurred",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Account registration successful",
+    "existEmail": "Email has been registered!",
+    "existUsername": "Username has been registered!",
+    "notExistUsername": "Username does not exist!",
+    "passwordIncorrect": "Password incorrect!",
+    "errorTitle": "Error!",
+    "changePasswordSuccess": "Password changed successfully!",
+    "passwordCurrentFail": "Old password is incorrect!",
+    "confirmEmail": "Please confirm that the password reset request has been sent to your email!"
+  },
   "HomePage": {
+    "title": "Play games online | Free games at gamesonline.com",
+    "description": "GamesGames is your zone to play online games! Play free games online including: racing games, sports games, Solitaire, and more at GamesGames.com!",
+    "viewAll": "View all",
     "title_new_games": "New games",
     "title_trending_games": "Trending games"
+  },
+  "Category": {
+    "title": "Cate",
+    "description": "Description cate",
+    "viewAll": "View all"
+  },
+  "GameDetail": {
+    "addToFavorites": "Add to Favorites"
   },
   "Login": {
     "title": "Login",
@@ -37,6 +67,33 @@
     "confirmPassword": "Confirm password",
     "email": "Email",
     "loginWith": "Login With"
+  },
+  "ForgotPassword": {
+    "title": "Forgot password",
+    "description": "Manager forgot password area",
+    "descriptionPage": "Welcome to our gaming world, where you can explore and experience the most exciting games!",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "forgotPassword": "Forgot Password",
+    "btnSendMail": "Send mail",
+    "btnLogin": "Login",
+    "btnRegister": "Register",
+    "alreadyHaveAnAccount": "Already have an account?",
+    "btnSubmit": "Submit"
+  },
+  "Profile": {
+    "title": "Profile user",
+    "description": "Manager profile area",
+    "email": "Email",
+    "username": "Username",
+    "profile": "Profile",
+    "changePassword": "Change password",
+    "btnChangePassword": "Save changes",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "favoriteGame": "Favorite Games"
   },
   "SwitchLanguage": {
     "title": "Switch language",
