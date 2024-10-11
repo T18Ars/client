@@ -164,8 +164,8 @@ export default function GamePage({slugCate, slugGame, data} : Props){
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="breadcrumb__links">
-                                <Link href="/"><i className="fa fa-home"></i> {commonT("home")}</Link>
-                                <Link href={`/${slugCate}`}>{gameDetail.ten_category}</Link>
+                                <Link href="/" title={commonT("home")}><i className="fa fa-home"></i> {commonT("home")}</Link>
+                                <Link href={`/${slugCate}`} title={gameDetail.ten_category}>{gameDetail.ten_category}</Link>
                                 <span>{gameDetail.ten || ''}</span>
                             </div>
                         </div>
@@ -200,11 +200,11 @@ export default function GamePage({slugCate, slugGame, data} : Props){
                             <div className="col-lg-2 col-md-3 col-sm-4" key={game.id}>
                                 <div className="product__item game_relate">
                                     <div className="product__item__pic">
-                                        <img src={game.img} alt="" />
+                                        <img src={game.img} alt={game.slug} title={game.slug} />
                                         <div className="ep bg_red">New</div>
                                     </div>
                                     <div className="product__item__text">
-                                        <h5><Link href={`/${game.slug_category}/${game.slug}`}>{game.ten}</Link></h5>
+                                        <h5><Link href={`/${game.slug_category}/${game.slug}`} title={game.ten}>{game.ten}</Link></h5>
                                     </div>
                                 </div>
                             </div>

@@ -138,6 +138,27 @@ ol {
 	content: "";
 }
 
+.section-title h1, .section-title h2 {
+	color: #ffffff;
+	font-weight: 600;
+	line-height: 21px;
+	text-transform: uppercase;
+	padding-left: 20px;
+	position: relative;
+	font-family: "Oswald", sans-serif;
+	font-size: 24px;
+}
+
+.section-title h1:after, .section-title h2:after {
+	position: absolute;
+	left: 0;
+	top: -6px;
+	height: 32px;
+	width: 4px;
+	background: #e53637;
+	content: "";
+}
+
 .set-bg {
 	background-repeat: no-repeat;
 	background-size: cover;

@@ -76,11 +76,11 @@ export default async function Home({params: { locale }} : { params: { locale: st
                                     <div className="col-lg-2 col-md-3 col-sm-4" key={game.id}>
                                         <div className="product__item">
                                             <div className="product__item__pic">
-                                                <img src={game.img} alt={game.slug} />
+                                                <img src={game.img} alt={game.slug} title={game.slug}/>
                                                 <div className="ep bg_red">New</div>
                                             </div>
                                             <div className="product__item__text">
-                                                <h5><Link href={`/${game.slug_category}/${game.slug}`}>{game.ten}</Link></h5>
+                                                <h5><Link href={`/${game.slug_category}/${game.slug}`} title={game.ten}>{game.ten}</Link></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -106,11 +106,11 @@ export default async function Home({params: { locale }} : { params: { locale: st
                                     <div className="col-lg-2 col-md-3 col-sm-4" key={game.id}>
                                         <div className="product__item">
                                             <div className="product__item__pic">
-                                                <img src={game.img} alt={game.slug} />
+                                                <img src={game.img} alt={game.slug} title={game.slug} />
                                                 <div className="ep bg_blue">Trending</div>
                                             </div>
                                             <div className="product__item__text">
-                                                <h5><Link href={`/${game.slug_category}/${game.slug}`}>{game.ten}</Link></h5>
+                                                <h5><Link href={`/${game.slug_category}/${game.slug}`} title={game.ten} >{game.ten}</Link></h5>
                                             </div>
                                         </div>
                                     </div>

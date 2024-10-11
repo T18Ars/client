@@ -47,7 +47,7 @@ export default function SwitchLanguage() {
           <SelectGroup>
             {locales.map((locale) => (
               <SelectItem value={locale} key={locale}>
-                <img src={`/img/quocky/${locale}.jfif`} style={{width: '25px', marginRight: '8px', display: 'inline-block'}}/>{t(locale)}
+                <img src={`/img/quocky/${locale}.jfif`} alt={`${locale}.jfif`} title={`${locale}.jfif`} style={{width: '25px', marginRight: '8px', display: 'inline-block'}}/>{t(locale)}
               </SelectItem>
             ))}
           </SelectGroup>

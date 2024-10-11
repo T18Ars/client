@@ -15,6 +15,7 @@ import SwitchLanguage from '@/components/switch-language'
 import { Locale } from '@/config'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import {routing} from '@/i18n/routing';
+import { baseOpenGraph } from "@/shared-metadata";
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -38,15 +39,14 @@ export function generateStaticParams() {
 }
 
 
-export async function generateMetadata({
-  params: { locale }
-}: {
-  params: { locale: Locale }
-}) {
+export async function generateMetadata({params: { locale }}: {params: { locale: Locale }}) {
   const t = await getTranslations({ locale, namespace: 'HomePage' })
   return {
     title: t('title'),
-    description: t('description')
+    description: t('description'),
+    openGraph: {
+      ...baseOpenGraph
+    }
   }
 }
 export default async function RootLayout({
@@ -96,8 +96,8 @@ export default async function RootLayout({
                   <div className="row">
                       <div className="col-lg-2">
                           <div className="header__logo">
-                              <Link href="/">
-                                  <img src="/img/logo.png" alt="" style={{width: '95px'}} />
+                              <Link href="/" title="logo website">
+                                  <img src="/img/logo.png" alt="logo website" title="logo website" style={{width: '95px'}} />
                               </Link>
                           </div>
                       </div>
@@ -107,11 +107,11 @@ export default async function RootLayout({
                                   <ul>
                                       {menu?.map((cate: cate) => (
                                           <li key={cate.id}>
-                                              <Link href={cate.slug}>{cate.ten}{cate.children.length > 0 &&<span className="arrow_carrot-down"></span>}</Link>
+                                              <Link href={`/${cate.slug}`} title={cate.ten}>{cate.ten}{cate.children.length > 0 &&<span className="arrow_carrot-down"></span>}</Link>
                                               {cate.children.length > 0 &&
                                               <ul className="dropdown">
                                                   {cate.children?.map((cateChildren: cate) => (
-                                                      <li key={cateChildren.id}><Link href={`/${cateChildren.slug}`}>{cateChildren.ten}</Link></li>
+                                                      <li key={cateChildren.id}><Link href={`/${cateChildren.slug}`} title={cateChildren.ten}>{cateChildren.ten}</Link></li>
                                                   ))}
                                               </ul>
                                               }
@@ -132,22 +132,22 @@ export default async function RootLayout({
           </AppProvider>
         <footer className="footer">
                 <div className="page-up">
-                    <Link href="#" id="scrollToTopButton"><span className="arrow_carrot-up"></span></Link>
+                    <Link href="#" title="back to top" id="scrollToTopButton"><span className="arrow_carrot-up"></span></Link>
                 </div>
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-3">
                             <div className="footer__logo">
-                                <Link href="/"><img src="/img/logo.png" alt="" style={{width: '95px'}} /></Link>
+                                <Link href="/" title="logo website"><img src="/img/logo.png" alt="logo website" title="logo website" style={{width: '95px'}} /></Link>
                             </div>
                         </div>
                         <div className="col-lg-6">
                             <div className="footer__nav">
                                 <ul>
-                                    <li className="active"><Link href="/">Homepage</Link></li>
-                                    <li><Link href="./categories.html">Categories</Link></li>
-                                    <li><Link href="./blog.html">Our Blog</Link></li>
-                                    <li><Link href="#">Contacts</Link></li>
+                                    {/* <li className="active"><Link href="/">Homepage</Link></li>
+                                    <li><Link href="./categories.html" title="logo website">Categories</Link></li>
+                                    <li><Link href="./blog.html" title="logo website">Our Blog</Link></li>
+                                    <li><Link href="#" title="logo website">Contacts</Link></li> */}
                                 </ul>
                             </div>
                         </div>

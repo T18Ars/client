@@ -8,6 +8,7 @@ import { cache } from 'react'
 import { cate, gameDetail, wrapServerApi } from '@/lib/utils';
 import categoriesApiRequest from '@/apiRequests/categories';
 import gamesApiRequest from '@/apiRequests/games';
+import envConfig from '@/config';
 
 const getCateDetail = cache((slug: string) =>
     wrapServerApi(() => categoriesApiRequest.getDetail(slug, 1, 40, '0'))
@@ -23,10 +24,7 @@ type Props = {
     searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export async function generateMetadata({
-    params,
-    searchParams
-  }: Props): Promise<Metadata> {
+export async function generateMetadata({params, searchParams}: Props): Promise<Metadata> {
     const t = await getTranslations({
         locale: params.locale,
         namespace: 'Category'
@@ -38,7 +36,22 @@ export async function generateMetadata({
         if (cate) {
             return {
                 title: cate.title,
-                description: cate.description
+                description: cate.description,
+                openGraph: {
+                    title: cate.title,
+                    description: cate.description,
+                    url: envConfig.NEXT_PUBLIC_URL + `/${params.locale}/${slug[0]}`,
+                    siteName: envConfig.NEXT_PUBLIC_URL,
+                    // images: [
+                    //     {
+                    //         url: 'https://nextjs.org/og.png', // Must be an absolute URL
+                    //         width: 800,
+                    //         height: 600,
+                    //     }
+                    // ],
+                    locale: params.locale,
+                    type: 'website',
+                }
             }
         }
         else{
@@ -54,7 +67,22 @@ export async function generateMetadata({
         if (game) {
             return {
                 title: game.title,
-                description: game.description
+                description: game.description,
+                openGraph: {
+                    title: game.title,
+                    description: game.description,
+                    url: envConfig.NEXT_PUBLIC_URL + `/${params.locale}/${slug[0]}/${slug[1]}`,
+                    siteName: envConfig.NEXT_PUBLIC_URL,
+                    // images: [
+                    //     {
+                    //         url: 'https://nextjs.org/og.png', // Must be an absolute URL
+                    //         width: 800,
+                    //         height: 600,
+                    //     }
+                    // ],
+                    locale: params.locale,
+                    type: 'website',
+                }
             }
         }
         else{

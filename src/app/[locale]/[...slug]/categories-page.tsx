@@ -90,7 +90,7 @@ export default function CategoriesPage({slug, data} : Props){
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="breadcrumb__links">
-                                <a href="./"><i className="fa fa-home"></i> {t("home")}</a>
+                                <Link href="./" title={t("home")}><i className="fa fa-home"></i> {t("home")}</Link>
                                 <span>{cateDetail?.ten || ''}</span>
                             </div>
                         </div>
@@ -106,7 +106,7 @@ export default function CategoriesPage({slug, data} : Props){
                                     <div className="row">
                                         <div className="col-lg-8 col-md-8 col-sm-6">
                                             <div className="section-title">
-                                                <h4>{cateDetail?.ten}</h4>
+                                                <h1>{cateDetail?.ten}</h1>
                                             </div>
                                         </div>
                                         <div className="col-lg-4 col-md-4 col-sm-6">
@@ -136,11 +136,11 @@ export default function CategoriesPage({slug, data} : Props){
                                     <div className="col-lg-3 col-md-4 col-sm-6" key={game.id}>
                                         <div className="product__item">
                                             <div className="product__item__pic">
-                                                <img src={game.img} alt={game.slug} />
+                                                <img src={game.img} alt={game.slug} title={game.slug} />
                                                 <div className="ep bg_red">New</div>
                                             </div>
                                             <div className="product__item__text">
-                                                <h5><Link href={`${slug}/${game.slug}`}>{game.ten}</Link></h5>
+                                                <h5><Link href={`${slug}/${game.slug}`} title={game.ten}>{game.ten}</Link></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -150,10 +150,10 @@ export default function CategoriesPage({slug, data} : Props){
                             </div>
                             <div className="product__pagination">
                                 {cateDetail.meta.page > 2 &&
-                                <Link href={`/${cateDetail.slug}`}><i className="fa fa-angle-double-left"></i></Link>}
+                                <Link href={`/${cateDetail.slug}`}><i className="fa fa-angle-double-left" title="Trang đầu"></i></Link>}
 
                                 {cateDetail.meta.page > 1 &&
-                                <Link href={`/${cateDetail.slug}?page=${cateDetail.meta.page - 1}`}><i className="fa fa-angle-left"></i></Link>}
+                                <Link href={`/${cateDetail.slug}?page=${cateDetail.meta.page - 1}`} title="Trang trước"><i className="fa fa-angle-left"></i></Link>}
                                 
                                 {cateDetail.meta.total_page > 1 && Array(cateDetail.meta.total_page)
                                     .fill(0)
@@ -165,7 +165,8 @@ export default function CategoriesPage({slug, data} : Props){
                                                 <Link 
                                                     key={pageNumber} 
                                                     href={`/${cateDetail.slug}?page=${pageNumber}`}
-                                                    className={isActive ? "current-page" : ""}>
+                                                    className={isActive ? "current-page" : ""}
+                                                    title={`Trang ${pageNumber}`}>
                                                     {pageNumber}
                                                 </Link>
                                             )
@@ -173,17 +174,17 @@ export default function CategoriesPage({slug, data} : Props){
                                     }
                                 )}
                                 {cateDetail.meta.page != cateDetail.meta.total_page && ((cateDetail.meta.total_page as number) > 0) &&
-                                <Link href={`/${cateDetail.slug}?page=${cateDetail.meta.page + 1}`} ><i className="fa fa-angle-right"></i></Link>}
+                                <Link href={`/${cateDetail.slug}?page=${cateDetail.meta.page + 1}`} title="Trang sau"><i className="fa fa-angle-right"></i></Link>}
                                 
                                 {((cateDetail.meta.page + 1) < Number(cateDetail.meta.total_page)) &&
-                                <Link href={`/${cateDetail.slug}?page=${cateDetail.meta.total_page}`}><i className="fa fa-angle-double-right"></i></Link>}
+                                <Link href={`/${cateDetail.slug}?page=${cateDetail.meta.total_page}`} title="Trang cuối"><i className="fa fa-angle-double-right"></i></Link>}
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-12 col-sm-12">
                             <div className="product__sidebar">
                                 <div className="product__sidebar__view">
                                     <div className="section-title product__page__title">
-                                        <h4>{t("topGames")}</h4>
+                                        <h2>{t("topGames")}</h2>
                                     </div>
                                     
                                     <div className="row">
@@ -191,11 +192,11 @@ export default function CategoriesPage({slug, data} : Props){
                                         <div className="col-lg-6 col-md-4 col-sm-6" key={game.id}>
                                             <div className="product__item">
                                                 <div className="product__item__pic">
-                                                    <img src={game.img} alt={game.slug}/>
+                                                    <img src={game.img} alt={game.slug} title={game.slug} />
                                                     <div className="ep bg_red"></div>
                                                 </div>
                                                 <div className="product__item__text">
-                                                    <h5><Link href={`${slug}/${game.slug}`}>{game.ten}</Link></h5>
+                                                    <h5><Link href={`${slug}/${game.slug}`} title={game.ten}>{game.ten}</Link></h5>
                                                 </div>
                                             </div>
                                         </div>
