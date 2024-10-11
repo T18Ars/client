@@ -5,7 +5,7 @@ import { Link, useRouter } from "@/i18n/routing";
 import { useState, useEffect, Fragment } from 'react'
 import parse, { domToReact } from 'html-react-parser';
 import { Button } from "@/components/ui/button";
-import { gameDetail, getProfileFromLocalStorage, handleErrorApi } from "@/lib/utils";
+import { CommonMessages, gameDetail, getProfileFromLocalStorage, handleErrorApi } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useAddFavoritesMutation } from "@/queries/useAuth";
 import { FavoritesBodyType } from "@/schemaValidations/auth.schema";
@@ -52,13 +52,13 @@ export default function GamePage({slugCate, slugGame, data} : Props){
 
     useEffect(() => {
         // detail game
-        // const fetchData = async () : Promise<gameDetail> => {
-        //     const { payload } = await gamesApiRequest.getDetail(slugGame)
-        //     return payload as gameDetail;
-        // }
-        // fetchData().then(res => {
-        //     setGameDetail(res)
-        // })
+        const fetchData = async () : Promise<gameDetail> => {
+            const { payload } = await gamesApiRequest.getDetail(slugGame)
+            return payload as gameDetail;
+        }
+        fetchData().then(res => {
+            setGameDetail(res)
+        })
 
         // games relate
         const fetchDataRelate = async () : Promise<gameDetail[]> => {
@@ -117,8 +117,8 @@ export default function GamePage({slugCate, slugGame, data} : Props){
     const handleAddToFavorites = async () => {
         if(gameDetail.is_favorites) {
             toast({
-                description: 'Trò chơi đã được thêm vào mục yêu thích!',
-                variant: "success",
+                description: t("existAddToFavorites"),
+                variant: "default",
             })
             return
         }
@@ -132,8 +132,9 @@ export default function GamePage({slugCate, slugGame, data} : Props){
                         game_id: gameDetail.id
                     } as FavoritesBodyType
                     const result = await addFavoritesMutation.mutateAsync(data)
+                    const messageKey = result.payload.message as keyof typeof CommonMessages;
                     toast({
-                        description: result.payload.message,
+                        description: commonT(messageKey),
                         variant: "success",
                     })
                     setGameDetail({
@@ -143,9 +144,8 @@ export default function GamePage({slugCate, slugGame, data} : Props){
                 }
                 else{
                     toast({
-                        description: 'Bạn cần đăng nhập để thêm trò chơi yêu thích!',
+                        description: t("loginFavorites"),
                         variant: "destructive",
-                        className: "bg-white text-foreground",
                     })
                 }
             }

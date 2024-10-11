@@ -24,7 +24,9 @@
     "errorTitle": "Error!",
     "changePasswordSuccess": "Password changed successfully!",
     "passwordCurrentFail": "Old password is incorrect!",
-    "confirmEmail": "Please confirm that the password reset request has been sent to your email!"
+    "confirmEmail": "Please confirm that the password reset request has been sent to your email!",
+    "addToFavoritesSuccess": "Add favorite game successfully!",
+    "addToFavoritesFail": "Error adding favorite game!"
   },
   "HomePage": {
     "title": "Play games online | Free games at gamesonline.com",
@@ -39,7 +41,9 @@
     "viewAll": "View all"
   },
   "GameDetail": {
-    "addToFavorites": "Add to Favorites"
+    "addToFavorites": "Add to Favorites",
+    "loginFavorites": "You need to log in to add favorite games!",
+    "existAddToFavorites": "The game has been added to your favorites!"
   },
   "Login": {
     "title": "Login",

@@ -6,6 +6,8 @@ import {
 const gamesApiRequest = {
   getGamesByCategories: (cate: string) => http.get<GamesListResType>(`/api/games/get-by-categories/${cate}`),
   getDetail: (slug: string) => http.get(`/api/games/get-detail/${slug}`),
+  getInfoSeo: (slug: string) => http.get(`/api/games/get-info-seo/${slug}`),
+  getAllSlug: () => http.get<any>(`/api/games/get-all-slug`),
   getDetailRelate: (slug: string) => http.get(`/api/games/get-relate/${slug}`),
   getGamesNew: (page: number, page_size: number, sort: string) => http.get<any>(`/api/games/get-games-new?page=${page}&page_size=${page_size}&sort=${sort}`),
   getGamesTrending: (page: number, page_size: number, sort: string) => http.get<any>(`/api/games/get-games-trending?page=${page}&page_size=${page_size}&sort=${sort}`),

@@ -24,7 +24,9 @@
     "errorTitle": "Lỗi!",
     "changePasswordSuccess": "Thay đổi mật khẩu thành công!",
     "passwordCurrentFail": "Mật khẩu cũ không đúng!",
-    "confirmEmail": "Vui lòng xác nhận yêu cầu thay đổi mật khẩu đã được gửi tới email của bạn!"
+    "confirmEmail": "Vui lòng xác nhận yêu cầu thay đổi mật khẩu đã được gửi tới email của bạn!",
+    "addToFavoritesSuccess": "Thêm trò chơi yêu thích thành công!",
+    "addToFavoritesFail": "Có lỗi khi thêm trò chơi yêu thích!"
   },
   "HomePage": {
     "title": "Chơi games trực tuyến, miễn phí tại gamesonline.com",
@@ -39,7 +41,9 @@
     "viewAll": "Xem thêm"
   },
   "GameDetail": {
-    "addToFavorites": "Yêu thích"
+    "addToFavorites": "Yêu thích",
+    "loginFavorites": "Bạn cần đăng nhập để thêm trò chơi yêu thích!",
+    "existAddToFavorites": "Trò chơi đã được thêm vào mục yêu thích!"
   },
   "Login": {
     "title": "Đăng nhập",

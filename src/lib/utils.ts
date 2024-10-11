@@ -180,5 +180,8 @@ export enum CommonMessages {
     passwordIncorrect = "passwordIncorrect",
     changePasswordSuccess = "changePasswordSuccess",
     passwordCurrentFail = "passwordCurrentFail",
-    confirmEmail = "confirmEmail"
+    confirmEmail = "confirmEmail",
+    addToFavoritesSuccess = "addToFavoritesSuccess",
+    addToFavoritesFail = "addToFavoritesFail"
+
 }
