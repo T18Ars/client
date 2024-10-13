@@ -126,6 +126,7 @@ export default async function RootLayout({
                                               }
                                           </li>
                                       ))}
+                                      <li><Link href="/allcategories" title="AllCategories">All Categories</Link></li>
                                   </ul>
                               </nav>
                           </div>

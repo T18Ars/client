@@ -13,6 +13,11 @@ const staticRoutes: MetadataRoute.Sitemap = [
     url: '/login',
     changeFrequency: 'yearly',
     priority: 0.5
+  },
+  {
+    url: '/allcategories',
+    changeFrequency: 'yearly',
+    priority: 0.5
   }
 ]
 

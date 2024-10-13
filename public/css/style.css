@@ -188,7 +188,7 @@ ol {
 .primary-btn {
 	display: inline-block;
 	font-size: 13px;
-	font-weight: 700;
+	/* font-weight: 700; */
 	text-transform: uppercase;
 	color: #ffffff;
 	letter-spacing: 2px;
@@ -205,7 +205,7 @@ ol {
 	font-size: 13px;
 	color: #ffffff;
 	background: #e53637;
-	font-weight: 700;
+	/* font-weight: 700; */
 	border: none;
 	border-radius: 2px;
 	letter-spacing: 2px;
@@ -380,7 +380,7 @@ div[role="dialog"] input{
 	list-style: none;
 	display: inline-block;
 	position: relative;
-	margin-right: 16px;
+	/* margin-right: 16px; */
 }
 
 .header__menu ul li.active a {
@@ -438,11 +438,10 @@ div[role="dialog"] input{
 	font-size: 15px;
 	color: #b7b7b7;
 	display: block;
-	font-weight: 700;
 	-webkit-transition: all, 0.5s;
 	-o-transition: all, 0.5s;
 	transition: all, 0.5s;
-	padding: 20px;
+	padding: 20px 15px;
 }
 
 .header__menu ul li a span {
@@ -492,7 +491,7 @@ div[role="dialog"] input{
     -webkit-font-smoothing: antialiased;
 	font-size: 15px;
     color: #b7b7b7;
-    font-weight: 700;
+    /* font-weight: 700; */
     transition: all, 0.3s;
 }
 .header__right .auth_a:hover{
@@ -514,7 +513,7 @@ div[role="dialog"] input{
 .txt_login{
 	font-size: 15px!important;
     color: #b7b7b7!important;
-    font-weight: 700;
+    /* font-weight: 700; */
     transition: all, 0.3s;
 }
 .txt_login:hover{
@@ -560,7 +559,7 @@ div[role="dialog"] input{
 	color: #ffffff;
 	font-size: 42px;
 	font-family: "Oswald", sans-serif;
-	font-weight: 700;
+	/* font-weight: 700; */
 	line-height: 52px;
 	margin-top: 35px;
 	margin-bottom: 8px;
@@ -598,7 +597,7 @@ div[role="dialog"] input{
 	color: #ffffff;
 	background: #e53637;
 	display: inline-block;
-	font-weight: 700;
+	/* font-weight: 700; */
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	padding: 14px 20px;
@@ -710,6 +709,17 @@ div[role="dialog"] input{
 .a_pp_tos p{
 	margin-top: 0;
 }
+
+.item_cate{
+	margin-bottom: 10px;
+}
+.item_cate a{
+	color: white;
+}
+.item_cate a:hover{
+	text-decoration: underline;
+	color: #e53637;
+}
 /*---------------------
   Product
 -----------------------*/
@@ -807,7 +817,7 @@ div[role="dialog"] input{
 	list-style: none;
 	font-size: 10px;
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	padding: 1px 10px;
 	background: rgba(255, 255, 255, 0.2);
 	border-radius: 50px;
@@ -816,7 +826,6 @@ div[role="dialog"] input{
 
 .product__item__text h5 a {
 	color: #ffffff;
-	font-weight: 700;
 	line-height: 26px;
 	font-size: 13px;
 }
@@ -910,7 +919,7 @@ div[role="dialog"] input{
 
 .product__sidebar__view__item h5 a {
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	line-height: 26px;
 }
 
@@ -940,7 +949,7 @@ div[role="dialog"] input{
 	list-style: none;
 	font-size: 10px;
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	padding: 1px 10px;
 	background: rgba(255, 255, 255, 0.2);
 	border-radius: 50px;
@@ -953,7 +962,7 @@ div[role="dialog"] input{
 
 .product__sidebar__comment__item__text h5 a {
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	line-height: 26px;
 }
 
@@ -989,7 +998,7 @@ div[role="dialog"] input{
 	display: inline-block;
 	font-size: 15px;
 	color: #3d3d3d;
-	font-weight: 700;
+	/* font-weight: 700; */
 	border-radius: 0;
 	padding-left: 15px;
 	padding-right: 40px;
@@ -1102,7 +1111,7 @@ div[role="dialog"] input{
 
 .anime__details__title h3 {
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	margin-bottom: 13px;
 }
 
@@ -1169,7 +1178,7 @@ div[role="dialog"] input{
 	color: #ffffff;
 	background: #e53637;
 	display: inline-block;
-	font-weight: 700;
+	/* font-weight: 700; */
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	padding: 14px 20px;
@@ -1182,7 +1191,7 @@ div[role="dialog"] input{
 	color: #ffffff;
 	background: #e53637;
 	display: inline-block;
-	font-weight: 700;
+	/* font-weight: 700; */
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	padding: 14px 20px;
@@ -1241,7 +1250,7 @@ div[role="dialog"] input{
 
 .anime__review__item__text h6 {
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	margin-bottom: 10px;
 }
 
@@ -1272,7 +1281,7 @@ div[role="dialog"] input{
 .anime__details__form form button {
 	font-size: 11px;
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	background: #e53637;
@@ -1425,7 +1434,34 @@ div[role="dialog"] input{
 	color: #b7b7b7;
 	display: inline-block;
 }
-
+.allcategories .flex{
+	padding: 15px;
+}
+.allcategories h1{
+	font-size: 24px;
+}
+.allcategories .section-title a{
+	color: #ffffff;
+    font-weight: 600;
+    line-height: 21px;
+    text-transform: uppercase;
+    padding-left: 20px;
+    position: relative;
+    font-family: "Oswald", sans-serif;
+    font-size: 24px;
+}
+.allcategories .section-title a::after{
+	position: absolute;
+    left: 0;
+    top: 0;
+    height: 32px;
+    width: 4px;
+    background: #e53637;
+    content: "";
+}
+.allcategories .section-title a:hover{
+	color: #e53637;
+}
 /*---------------------
     Normal Breadcrumb
 -----------------------*/
@@ -1447,7 +1483,7 @@ div[role="dialog"] input{
 	color: #ffffff;
 	font-size: 48px;
 	font-family: "Oswald", sans-serif;
-	font-weight: 700;
+	/* font-weight: 700; */
 	margin-bottom: 22px;
 }
 
@@ -1531,7 +1567,7 @@ div[role="dialog"] input{
 .blog__details__title h6 {
 	font-size: 15px;
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	text-transform: uppercase;
 	margin-bottom: 30px;
 }
@@ -1545,7 +1581,7 @@ div[role="dialog"] input{
 .blog__details__title h2 {
 	color: #ffffff;
 	font-size: 48px;
-	font-weight: 700;
+	/* font-weight: 700; */
 	line-height: 60px;
 	margin-bottom: 38px;
 }
@@ -1607,7 +1643,7 @@ div[role="dialog"] input{
 
 .blog__details__item__text h4 {
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	margin-bottom: 35px;
 }
 
@@ -1631,7 +1667,7 @@ div[role="dialog"] input{
 	display: inline-block;
 	color: #b7b7b7;
 	font-size: 12px;
-	font-weight: 700;
+	/* font-weight: 700; */
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	background: rgba(255, 255, 255, 0.1);
@@ -1680,7 +1716,7 @@ div[role="dialog"] input{
 
 .blog__details__comment h4 {
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	margin-bottom: 26px;
 }
 
@@ -1711,7 +1747,7 @@ div[role="dialog"] input{
 
 .blog__details__comment__item__text h5 {
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	margin-bottom: 10px;
 }
 
@@ -1745,7 +1781,7 @@ div[role="dialog"] input{
 
 .blog__details__form h4 {
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	margin-bottom: 26px;
 }
 
@@ -1841,7 +1877,7 @@ div[role="dialog"] input{
 
 .login__form h3 {
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	font-family: "Oswald", sans-serif;
 	margin-bottom: 30px;
 }
@@ -1920,7 +1956,7 @@ div[role="dialog"] input{
 
 .login__register h3 {
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	font-family: "Oswald", sans-serif;
 	margin-bottom: 30px;
 }
@@ -1942,7 +1978,7 @@ div[role="dialog"] input{
 	color: #ffffff;
 	display: block;
 	font-size: 13px;
-	font-weight: 700;
+	/* font-weight: 700; */
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	margin-bottom: 30px;
@@ -1961,7 +1997,7 @@ div[role="dialog"] input{
 	color: #ffffff;
 	display: block;
 	font-size: 13px;
-	font-weight: 700;
+	/* font-weight: 700; */
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	width: 460px;
@@ -2010,7 +2046,7 @@ div[role="dialog"] input{
 
 .signup .login__form h5 a {
 	color: #e53637;
-	font-weight: 700;
+	/* font-weight: 700; */
 }
 
 .signup .login__social__links {
@@ -2020,7 +2056,7 @@ div[role="dialog"] input{
 
 .signup .login__social__links h3 {
 	color: #ffffff;
-	font-weight: 700;
+	/* font-weight: 700; */
 	font-family: "Oswald", sans-serif;
 	margin-bottom: 30px;
 }
@@ -2085,7 +2121,7 @@ div[role="dialog"] input{
 	font-size: 15px;
 	color: #b7b7b7;
 	display: block;
-	font-weight: 700;
+	/* font-weight: 700; */
 }
 
 .footer__copyright__text {
@@ -2360,7 +2396,7 @@ ul.dropdown{
 		text-align: left;
 	}
 	.product__page__title .section-title {
-		margin-bottom: 30px;
+		/* margin-bottom: 30px; */
 	}
 	.product__page__title .product__page__filter {
 		text-align: left;

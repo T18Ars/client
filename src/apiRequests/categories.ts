@@ -7,6 +7,7 @@ const categoriesApiRequest = {
       cache: 'no-store'
     }),
   getAllSlug: () => http.get<any>(`/api/categories/get-all-slug`),
+  getAllCategories: () => http.get<any>(`/api/categories/get-all-categories`),
 }
 
 export default categoriesApiRequest

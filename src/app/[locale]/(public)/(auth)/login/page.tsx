@@ -2,6 +2,7 @@ import LoginForm from "./login-form";
 // import { unstable_setRequestLocale } from 'next-intl/server'
 import { Locale } from '@/config'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+
 export async function generateMetadata({
   params: { locale }
 }: {
