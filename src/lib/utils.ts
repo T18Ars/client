@@ -4,6 +4,7 @@ import { UseFormSetError } from "react-hook-form"
 import { twMerge } from "tailwind-merge"
 import { EntityError } from "./http"
 import authApiRequest from '@/apiRequests/auth'
+const { convert } = require('html-to-text');
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -134,6 +135,14 @@ export const wrapServerApi = async <T>(fn: () => Promise<T>) => {
     }
   }
   return result
+}
+
+export const htmlToTextForDescription = (html: string) => {
+  return convert(html, {
+    limits: {
+      maxInputLength: 140
+    }
+  })
 }
 
 export type cate = {

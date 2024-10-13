@@ -5,7 +5,7 @@ import { unstable_setRequestLocale } from 'next-intl/server'
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server'
 import { cache } from 'react'
-import { cate, gameDetail, wrapServerApi } from '@/lib/utils';
+import { cate, gameDetail, htmlToTextForDescription, wrapServerApi } from '@/lib/utils';
 import categoriesApiRequest from '@/apiRequests/categories';
 import gamesApiRequest from '@/apiRequests/games';
 import envConfig from '@/config';
@@ -36,7 +36,7 @@ export async function generateMetadata({params, searchParams}: Props): Promise<M
         if (cate) {
             return {
                 title: cate.title,
-                description: cate.description,
+                description: htmlToTextForDescription(cate.description),
                 openGraph: {
                     title: cate.title,
                     description: cate.description,
@@ -51,6 +51,9 @@ export async function generateMetadata({params, searchParams}: Props): Promise<M
                     // ],
                     locale: params.locale,
                     type: 'website',
+                },
+                alternates: {
+                    canonical: envConfig.NEXT_PUBLIC_URL + `/${params.locale}/${slug[0]}`,
                 }
             }
         }
@@ -70,7 +73,7 @@ export async function generateMetadata({params, searchParams}: Props): Promise<M
                 description: game.description,
                 openGraph: {
                     title: game.title,
-                    description: game.description,
+                    description: htmlToTextForDescription(game.description),
                     url: envConfig.NEXT_PUBLIC_URL + `/${params.locale}/${slug[0]}/${slug[1]}`,
                     siteName: envConfig.NEXT_PUBLIC_URL,
                     // images: [
@@ -82,6 +85,9 @@ export async function generateMetadata({params, searchParams}: Props): Promise<M
                     // ],
                     locale: params.locale,
                     type: 'website',
+                },
+                alternates: {
+                    canonical: envConfig.NEXT_PUBLIC_URL + `/${params.locale}/${slug[0]}`,
                 }
             }
         }

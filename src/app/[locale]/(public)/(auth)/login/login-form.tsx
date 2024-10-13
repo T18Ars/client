@@ -31,6 +31,7 @@ import envConfig from '@/config'
 import { useTranslations } from 'next-intl'
 import SearchParamsLoader, { useSearchParamsLoader } from '@/components/search-params-loader'
 import { useParams } from 'next/navigation'
+import { LoaderCircle } from 'lucide-react'
 
 
 const getOauthGoogleUrl = () => {
@@ -201,7 +202,10 @@ export default function LoginForm(){
                                             <span className="icon_lock"></span>
                                         </div>
                                     {/* <button type="submit" className="site-btn">Login Now</button> */}
-                                    <Button type="submit" style={{marginTop: '26px'}} className="site-btn bg-red-600 hover:bg-destructive/90 my-10">{t('title')}</Button>
+                                    <Button type="submit" style={{marginTop: '26px', display: 'flex'}} className="site-btn bg-red-600 hover:bg-destructive/90 my-10">
+                                        {loginMutation.isPending && (<LoaderCircle className='w-5 h-5 mr-2 animate-spin' />)}
+                                        {t('title')}
+                                    </Button>
                                     </form>
                                 </Form>
                                 {/* <Link href="/forgot-password" className="forget_pass">Forgot Your Password?</Link> */}
@@ -239,7 +243,10 @@ export default function LoginForm(){
                                                     </div>
                                                 </div>
                                                 <DialogFooter>
-                                                    <Button type="submit" className='btn_change_pass'>{t("btnSendMail")}</Button>
+                                                    
+                                                    <Button type="submit" className='btn_change_pass'>
+                                                        {t("btnSendMail")}
+                                                    </Button>
                                                 </DialogFooter>
                                             </form>
                                         </Form>

@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input';
 import { useRegisterMutation } from '@/queries/useAuth';
 import { CommonMessages, handleErrorApi } from '@/lib/utils';
 import { useTranslations } from 'next-intl'
+import { LoaderCircle } from 'lucide-react'
 
 export default function RegisterForm(){
     const t = useTranslations('Register')
@@ -162,7 +163,10 @@ export default function RegisterForm(){
                                             <span className="icon_lock"></span>
                                         </div>
                                         {/* <button type="submit" className="site-btn">Login Now</button> */}
-                                        <Button type="submit" className="site-btn bg-red-600 hover:bg-destructive/90">{t("title")}</Button>
+                                        <Button type="submit" className="site-btn bg-red-600 hover:bg-destructive/90">
+                                            {registeMutation.isPending && (<LoaderCircle className='w-5 h-5 mr-2 animate-spin' />)}
+                                            {t("title")}
+                                        </Button>
                                     
                                     </form>
                                 </Form>

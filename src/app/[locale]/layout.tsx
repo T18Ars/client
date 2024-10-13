@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter as FontSans } from 'next/font/google'
-import { cn } from "@/lib/utils";
+import { cn, htmlToTextForDescription } from "@/lib/utils";
 import envConfig from "@/config";
 import { Toaster } from "@/components/ui/toaster";
 import { Link } from "@/i18n/routing";
@@ -16,6 +16,7 @@ import { Locale } from '@/config'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import {routing} from '@/i18n/routing';
 import { baseOpenGraph } from "@/shared-metadata";
+import NextTopLoader from 'nextjs-toploader';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -43,9 +44,12 @@ export async function generateMetadata({params: { locale }}: {params: { locale: 
   const t = await getTranslations({ locale, namespace: 'HomePage' })
   return {
     title: t('title'),
-    description: t('description'),
+    description: htmlToTextForDescription(t('description')),
     openGraph: {
       ...baseOpenGraph
+    },
+    alternates: {
+      canonical: envConfig.NEXT_PUBLIC_URL + `/${locale}`,
     }
   }
 }
@@ -57,6 +61,7 @@ export default async function RootLayout({
   params: { locale: string }
 }>) {
   unstable_setRequestLocale(locale)
+  const commonT = await getTranslations({ locale, namespace: 'Common' })
   let menu: cate[]
   const { payload } = await categoriesApiRequest.getCateMenu()
   menu = payload as cate[]
@@ -89,6 +94,10 @@ export default async function RootLayout({
           fontSans.variable
         )}
       >
+      <NextTopLoader 
+        color="#F8F8DF"
+        showSpinner={false}
+      />
       <NextIntlClientProvider messages={messages}>
         <AppProvider>
           <header className="header">
@@ -144,10 +153,9 @@ export default async function RootLayout({
                         <div className="col-lg-6">
                             <div className="footer__nav">
                                 <ul>
-                                    {/* <li className="active"><Link href="/">Homepage</Link></li>
-                                    <li><Link href="./categories.html" title="logo website">Categories</Link></li>
-                                    <li><Link href="./blog.html" title="logo website">Our Blog</Link></li>
-                                    <li><Link href="#" title="logo website">Contacts</Link></li> */}
+                                    <li><Link href='/term-of-service' title={commonT("termOfService")} className='hover:underline' prefetch={false} >{commonT("termOfService")}</Link></li>
+                                    <li><Link href='/privacy-policy' title={commonT("privacyPolicy")} className='hover:underline' prefetch={false} >{commonT("privacyPolicy")}</Link></li>
+                                    <li><Link href='/about' title={commonT("about")} className='hover:underline' prefetch={false} >{commonT("about")}</Link></li>
                                 </ul>
                             </div>
                         </div>

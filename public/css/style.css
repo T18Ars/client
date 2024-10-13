@@ -704,6 +704,12 @@ div[role="dialog"] input{
 	z-index: 1;
 }
 
+.a_pp_tos h2{
+	font-size: 22px;
+}
+.a_pp_tos p{
+	margin-top: 0;
+}
 /*---------------------
   Product
 -----------------------*/

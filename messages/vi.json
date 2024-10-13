@@ -26,7 +26,10 @@
     "passwordCurrentFail": "Mật khẩu cũ không đúng!",
     "confirmEmail": "Vui lòng xác nhận yêu cầu thay đổi mật khẩu đã được gửi tới email của bạn!",
     "addToFavoritesSuccess": "Thêm trò chơi yêu thích thành công!",
-    "addToFavoritesFail": "Có lỗi khi thêm trò chơi yêu thích!"
+    "addToFavoritesFail": "Có lỗi khi thêm trò chơi yêu thích!",
+    "about": "Về chúng tôi",
+    "privacyPolicy": "Chính sách bảo mật",
+    "termOfService": "Điều khoản dịch vụ"
   },
   "HomePage": {
     "title": "Chơi games trực tuyến, miễn phí tại gamesonline.com",

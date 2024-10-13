@@ -26,7 +26,10 @@
     "passwordCurrentFail": "Old password is incorrect!",
     "confirmEmail": "Please confirm that the password reset request has been sent to your email!",
     "addToFavoritesSuccess": "Add favorite game successfully!",
-    "addToFavoritesFail": "Error adding favorite game!"
+    "addToFavoritesFail": "Error adding favorite game!",
+    "about": "About",
+    "privacyPolicy": "Privacy policy",
+    "termOfService": "Term of service"
   },
   "HomePage": {
     "title": "Play games online | Free games at gamesonline.com",
