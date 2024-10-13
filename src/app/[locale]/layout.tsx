@@ -53,13 +53,7 @@ export async function generateMetadata({params: { locale }}: {params: { locale: 
     }
   }
 }
-export default async function RootLayout({
-  children,
-  params: { locale }
-}: Readonly<{
-  children: React.ReactNode;
-  params: { locale: string }
-}>) {
+export default async function RootLayout({ children, params: { locale } }: Readonly<{ children: React.ReactNode; params: { locale: string } }>) {
   unstable_setRequestLocale(locale)
   const commonT = await getTranslations({ locale, namespace: 'Common' })
   let menu: cate[]
@@ -95,8 +89,9 @@ export default async function RootLayout({
         )}
       >
       <NextTopLoader 
-        color="#F8F8DF"
         showSpinner={false}
+        height={8}
+        // template="<div className='bar' role='bar' style='background: linear-gradient(to right, #2c6dd5 0%, #2c6dd5 28%, #ff4b5a 91%, #ff4b5a 100%)'><div className='peg'></div></div><div className='spinner' role='spinner'><div className='spinner-icon'></div></div>"
       />
       <NextIntlClientProvider messages={messages}>
         <AppProvider>
@@ -146,12 +141,12 @@ export default async function RootLayout({
                 </div>
                 <div className="container">
                     <div className="row">
-                        <div className="col-lg-3">
+                        <div className="col-lg-3 col-sm-12">
                             <div className="footer__logo">
                                 <Link href="/" title="logo website"><img src="/img/logo.png" alt="logo website" title="logo website" style={{width: '95px'}} /></Link>
                             </div>
                         </div>
-                        <div className="col-lg-6">
+                        <div className="col-lg-6 col-sm-12">
                             <div className="footer__nav">
                                 <ul>
                                     <li><Link href='/term-of-service' title={commonT("termOfService")} className='hover:underline' prefetch={false} >{commonT("termOfService")}</Link></li>
@@ -160,7 +155,7 @@ export default async function RootLayout({
                                 </ul>
                             </div>
                         </div>
-                        <div className="col-lg-3 d-flex justify-content-end">
+                        <div className="col-lg-3 col-sm-12 d-flex justify-content-end">
                           <SwitchLanguage />
                         </div>
                       </div>
@@ -169,10 +164,41 @@ export default async function RootLayout({
         </NextIntlClientProvider>
 
             <div className="search-model">
-              <div className="h-100 d-flex align-items-center justify-content-center">
+              <div className="h-100 d-flex justify-content-center search-model-div">
                 <div className="search-close-switch"><i className="icon_close"></i></div>
-                <form className="search-model-form">
-                    <input type="text" id="search-input" placeholder="Search here....." />
+                <form>
+                  <div className="inner-form">
+                    <div className="input-field first-wrap">
+                      <input id="search" type="text" placeholder="What game do you want to play?" />
+                    </div>
+                    <div className="input-field third-wrap">
+                      <button className="btn-search" type="button">SEARCH</button>
+                    </div>
+                  </div>
+                  <div className="result d-flex flex-column p-3 mt-2">
+                    <div className="lts_data_search">
+                      <div className="game_item d-flex align-items-center mb-3">
+                        <div className="game_img mr-3">
+                          <img src="https://gamesgamescdn.com/system/static/thumbs/spil_thumb_big/17321/jpeg_1609755697_Fireboy--Watergirl-3-The-Ice-Temple-200x120.jpg?1692365324" alt="" title="" />
+                        </div>
+                        <div className="game_title">
+                          <Link href="/2d-games/fireboy-watergirl-3-the-ice-temple" title="View all result" >Fireboy & Watergirl 3: The Ice Temple</Link>
+                        </div>
+                      </div>
+                      
+                      <div className="game_item d-flex align-items-center mb-3">
+                        <div className="game_img mr-3">
+                          <img src="https://gamesgamescdn.com/system/static/thumbs/spil_thumb_big/17321/jpeg_1609755697_Fireboy--Watergirl-3-The-Ice-Temple-200x120.jpg?1692365324" alt="" title="" />
+                        </div>
+                        <div className="game_title">
+                          <Link href="/2d-games/fireboy-watergirl-3-the-ice-temple" title="View all result" >Fireboy & Watergirl 3: The Ice Temple</Link>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="view_all text-center mt-3">
+                      <Link href="" title="View all result">View all result (45 game)</Link>
+                    </div>
+                  </div>
                 </form>
               </div>
             </div>

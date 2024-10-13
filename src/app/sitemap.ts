@@ -18,6 +18,21 @@ const staticRoutes: MetadataRoute.Sitemap = [
     url: '/allcategories',
     changeFrequency: 'yearly',
     priority: 0.5
+  },
+  {
+    url: '/about',
+    changeFrequency: 'yearly',
+    priority: 0.5
+  },
+  {
+    url: '/privacy-policy',
+    changeFrequency: 'yearly',
+    priority: 0.5
+  },
+  {
+    url: '/term-of-service',
+    changeFrequency: 'yearly',
+    priority: 0.5
   }
 ]
 

@@ -51,7 +51,7 @@ export default async function AllCategories({params} : Props) {
                                 <div className="row">
                                     {cate?.children && cate?.children?.map((child: any) => (
                                     <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12 item_cate" key={child.slug}>
-                                        <Link href={`/${child.slug}`}>{child.ten}</Link>
+                                        <Link href={`/${child.slug}`}>({child?.count_games}) - {child.ten} </Link>
                                     </div>
                                     ))}
                                 </div>
