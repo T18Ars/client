@@ -1,9 +1,9 @@
 import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
+import { getTranslations } from 'next-intl/server'
 import { Fragment } from 'react'
 
-export default function PrivacyPolicy() {
-  const commonT = useTranslations('Common')
+export default async function PrivacyPolicy({ params: { locale } }: Readonly<{ params: { locale: string } }>) {
+  const commonT = await getTranslations({ locale, namespace: 'Common' })
     return (
       <Fragment>
         <div className="breadcrumb-option">

@@ -17,6 +17,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import {routing} from '@/i18n/routing';
 import { baseOpenGraph } from "@/shared-metadata";
 import NextTopLoader from 'nextjs-toploader';
+import Search from "./search";
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -61,6 +62,7 @@ export default async function RootLayout({ children, params: { locale } }: Reado
   menu = payload as cate[]
   // const locale = await getLocale()
   const messages = await getMessages()
+
   
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -135,73 +137,36 @@ export default async function RootLayout({ children, params: { locale } }: Reado
           {children}
           
           </AppProvider>
-        <footer className="footer">
-                <div className="page-up">
-                    <Link href="#" title="back to top" id="scrollToTopButton"><span className="arrow_carrot-up"></span></Link>
+          <footer className="footer">
+            <div className="page-up">
+                <Link href="#" title="back to top" id="scrollToTopButton"><span className="arrow_carrot-up"></span></Link>
+            </div>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-3 col-sm-12">
+                  <div className="footer__logo">
+                    <Link href="/" title="logo website"><img src="/img/logo.png" alt="logo website" title="logo website" style={{width: '95px'}} /></Link>
+                  </div>
                 </div>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-3 col-sm-12">
-                            <div className="footer__logo">
-                                <Link href="/" title="logo website"><img src="/img/logo.png" alt="logo website" title="logo website" style={{width: '95px'}} /></Link>
-                            </div>
-                        </div>
-                        <div className="col-lg-6 col-sm-12">
-                            <div className="footer__nav">
-                                <ul>
-                                    <li><Link href='/term-of-service' title={commonT("termOfService")} className='hover:underline' prefetch={false} >{commonT("termOfService")}</Link></li>
-                                    <li><Link href='/privacy-policy' title={commonT("privacyPolicy")} className='hover:underline' prefetch={false} >{commonT("privacyPolicy")}</Link></li>
-                                    <li><Link href='/about' title={commonT("about")} className='hover:underline' prefetch={false} >{commonT("about")}</Link></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div className="col-lg-3 col-sm-12 d-flex justify-content-end">
-                          <SwitchLanguage />
-                        </div>
-                      </div>
+                <div className="col-lg-6 col-sm-12">
+                  <div className="footer__nav">
+                    <ul>
+                      <li><Link href='/term-of-service' title={commonT("termOfService")} className='hover:underline' prefetch={false} >{commonT("termOfService")}</Link></li>
+                      <li><Link href='/privacy-policy' title={commonT("privacyPolicy")} className='hover:underline' prefetch={false} >{commonT("privacyPolicy")}</Link></li>
+                      <li><Link href='/about' title={commonT("about")} className='hover:underline' prefetch={false} >{commonT("about")}</Link></li>
+                    </ul>
                   </div>
-            </footer>
-        </NextIntlClientProvider>
-
-            <div className="search-model">
-              <div className="h-100 d-flex justify-content-center search-model-div">
-                <div className="search-close-switch"><i className="icon_close"></i></div>
-                <form>
-                  <div className="inner-form">
-                    <div className="input-field first-wrap">
-                      <input id="search" type="text" placeholder="What game do you want to play?" />
-                    </div>
-                    <div className="input-field third-wrap">
-                      <button className="btn-search" type="button">SEARCH</button>
-                    </div>
-                  </div>
-                  <div className="result d-flex flex-column p-3 mt-2">
-                    <div className="lts_data_search">
-                      <div className="game_item d-flex align-items-center mb-3">
-                        <div className="game_img mr-3">
-                          <img src="https://gamesgamescdn.com/system/static/thumbs/spil_thumb_big/17321/jpeg_1609755697_Fireboy--Watergirl-3-The-Ice-Temple-200x120.jpg?1692365324" alt="" title="" />
-                        </div>
-                        <div className="game_title">
-                          <Link href="/2d-games/fireboy-watergirl-3-the-ice-temple" title="View all result" >Fireboy & Watergirl 3: The Ice Temple</Link>
-                        </div>
-                      </div>
-                      
-                      <div className="game_item d-flex align-items-center mb-3">
-                        <div className="game_img mr-3">
-                          <img src="https://gamesgamescdn.com/system/static/thumbs/spil_thumb_big/17321/jpeg_1609755697_Fireboy--Watergirl-3-The-Ice-Temple-200x120.jpg?1692365324" alt="" title="" />
-                        </div>
-                        <div className="game_title">
-                          <Link href="/2d-games/fireboy-watergirl-3-the-ice-temple" title="View all result" >Fireboy & Watergirl 3: The Ice Temple</Link>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="view_all text-center mt-3">
-                      <Link href="" title="View all result">View all result (45 game)</Link>
-                    </div>
-                  </div>
-                </form>
+                </div>
+                <div className="col-lg-3 col-sm-12 d-flex justify-content-end">
+                  <SwitchLanguage />
+                </div>
               </div>
             </div>
+          </footer>
+        </NextIntlClientProvider>
+
+        <Search />
+            
         <Script src="/js/jquery-3.3.1.min.js" />
         <Script src="/js/bootstrap.min.js" />
         <Script src="/js/player.js" />

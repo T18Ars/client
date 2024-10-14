@@ -368,9 +368,7 @@ div[role="dialog"] input{
 	justify-content: space-between;
 	align-items: center;
 }
-.lts_data_search{
-	border-bottom: 1px solid #939393;
-}
+
 .lts_data_search .game_img{
 	width: 150px;
 	height: 90px;
@@ -415,8 +413,14 @@ div[role="dialog"] input{
 .game_item:hover .game_title a{
 	/* color: #e53637; */
 }
+.game_item:not(:last-child){
+	margin-bottom: 16px;
+}
 .game_title a{
 	color: #000;
+}
+.view_all{
+	border-top: 1px solid #939393;
 }
 .view_all a{
 	color: #0b0c2a;
